@@ -4,7 +4,7 @@
 
 # Catmandu_PICAtoBibTex
 
-Transformation of bibliographic data from PICA+ format to BibTeX format for RILM
+Transformation of bibliographic data from PICA Plain format to BibTeX format for RILM
 
 The German editorial office of the Répertoire International de Littérature Musiicale (RILM) is located at the Staatliches Institut für Musikforschung (SIM). As such, the SIM transmits all entries of the [Bibliographie des Musikschrifttums](https://www.musikbibliographie.de/) (BMS online) published in Germany to the central editorial office of [RILM Abstracts of Music Literature](https://www.rilm.org/abstracts/) on a quarterly basis. The bibliographic data of the BMS online are in PICAplus format and has to be transformed into BibTeX format for further processing at the RILM central editorial office. For this purpose, the SIM uses the command line tool Catmandu. Further information on Catmandu is available here https://librecat.org/Catmandu. 
 
@@ -21,27 +21,6 @@ The German editorial office of the Répertoire International de Littérature Mus
 
 * [Catmandu::PICA](https://metacpan.org/dist/Catmandu-PICA)
 * [Catmandu::BibTeX](https://metacpan.org/pod/Catmandu::BibTeX)
-
-# Use of the files
-
-1. Validation of the PICA+ data. For example with [Catmandu::Validator::PICA](https://metacpan.org/pod/Catmandu::Validator::PICA).
-2. Using the command "catmandu convert PICA --type plain to CSV --fix festschrift_proceeding.fix < dmpbms.pp > festschrift_proceeding_ppn.csv | catmandu convert PICA --type plain to CSV --fix countrycode.fix < dmpbms.pp > countrycodelist.csv" in the command line, create a list of all IDs of proceedings, festschrifts and journals with the corresponding RILM-tags respectively country codes for the included essays.
-3. With the command "catmandu convert PICA --type plain to BibTeX --fix picafix.fix --fix replace.fix < dmpbms.pp > dmpbms.btx" in the command line the actual transformation and cleaning of the data is executed.
-4. Some BibTeX fields need a RILM specific naming. For this a postprocessing with an editor is necessary. The following fields and contents have to be renamed:
-* "@er{" -> "@book{"
-* "@dd{" -> "@dissertation{"
-* "@dm{" -> "@thesis{"
-* "type = {book}" -> "type = {bm}"
-* "type = {journal}" -> "type = {bp}"
-* "type = {article}" -> "type = {ap}"
-* "type = {collection}" -> "type = {bc}"
-* "@be{" -> "@collection{"
-* "type = {incollection}" -> "type = {ac}"
-* "@ae{" -> "@incollection{"
-* "@as{" -> "@incollection{"
-* "type = {video}" -> "type = {mp}"
-* "type = {audio}" -> "type = {mr}"
-* "type = {proceedings}" -> "type = {bs}"
 
 # Authors
 
@@ -80,7 +59,7 @@ See http://dev.perl.org/licenses/ for more information.
 
 # Catmandu_PICAtoBibTex
 
-Transformation bibliographischer Daten aus dem Format PICA+ in das Format BibTeX für RILM
+Transformation bibliographischer Daten aus dem Format PICA Plain in das Format BibTeX für RILM
 
 Am Staatlichen Institut für Musikforschung (SIM) befindet sich die deutsche Redaktion des Répertoire International de Littérature Musiicale (RILM). Als diese übermittelt das SIM vierteljährlich alle in Deutschland erscheinenden Einträge der [Bibliographie des Musikschrifttums](https://www.musikbibliographie.de/) (BMS online) an die Zentralredaktion von [RILM Abstracts of Music Literature](https://www.rilm.org/abstracts/). Die bibliographischen Daten aus BMS online liegen im PICAplus-Format vor und müssen für die Weiterverarbeitung in der RILM-Zentralredaktion in das Format BibTeX transformiert werden. Dafür nutzt das SIM das Kommandozeilentool Catmandu. Weitere Informationen zu Catmandu gibt hier https://librecat.org/Catmandu. 
 
@@ -97,27 +76,6 @@ Am Staatlichen Institut für Musikforschung (SIM) befindet sich die deutsche Red
 
 * [Catmandu::PICA](https://metacpan.org/dist/Catmandu-PICA)
 * [Catmandu::BibTeX](https://metacpan.org/pod/Catmandu::BibTeX)
-
-# Verwendung der Dateien
-
-1. Validation der PICA+ Daten. Zum Beispiel mit [Catmandu::Validator::PICA](https://metacpan.org/pod/Catmandu::Validator::PICA).
-2. Mit dem Befehl "catmandu convert PICA --type plain to CSV --fix festschrift_proceeding.fix < dmpbms.pp > festschrift_proceeding_ppn.csv | catmandu convert PICA --type plain to CSV --fix countrycode.fix < dmpbms.pp > countrycodelist.csv" in der Kommandozeile eine Liste aller IDs der Zeitschriften sowie der Konferenz- und Festschriften mit den dazugehörigen Ländercodes bzw. RILM-tags für die enthaltenen Aufsätze erstellen.
-3. Mit dem Befehl "catmandu convert PICA --type plain to BibTeX --fix picafix.fix --fix replace.fix < dmpbms.pp > dmpbms.btx" in der Kommandozeile wird die eigentliche Transformation und Bereinigung der Daten ausgeführt.
-4. Einige BibTeX-Felder benötigen eine RILM-spezifische Benennung. Dafür ist eine Nachbearbeitung mit einem Editor notwendig. Folgende Felder und Inhalte müssen umbenannt werden:
-* "@er{" -> "@book{"
-* "@dd{" -> "@dissertation{"
-* "@dm{" -> "@thesis{"
-* "type = {book}" -> "type = {bm}"
-* "type = {journal}" -> "type = {bp}"
-* "type = {article}" -> "type = {ap}"
-* "type = {collection}" -> "type = {bc}"
-* "@be{" -> "@collection{"
-* "type = {incollection}" -> "type = {ac}"
-* "@ae{" -> "@incollection{"
-* "@as{" -> "@incollection{"
-* "type = {video}" -> "type = {mp}"
-* "type = {audio}" -> "type = {mr}"
-* "type = {proceedings}" -> "type = {bs}"
 
 # Autoren
 
