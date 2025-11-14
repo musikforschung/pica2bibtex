@@ -1,0 +1,135 @@
+# fehlermeldung.fix
+# catmandu convert BibTeX to CSV --fields Type,Country,Note,Pages,Number,Volume,Year,Abstract,Abstractor,Series,Crossref,Ausschluss,PPN --fix ./pica2bibtex/fix/fehlermeldung.fix < dmpbms_${Date}.btx > fehlermeldung_bms.csv
+
+
+unless any_match(type,'[abcdejmpr][abcdefgklmnprstvwxz]')
+   copy_field(_citekey,PPN)
+   set_field(Type,"Das Feld type konnte nicht ermittelt werden: ")
+end
+
+if exists(country)
+   if any_match(country,'\d{5,}|^\s*$')
+      copy_field(_citekey,PPN)
+      set_field(Country,"Das Feld country konnte nicht ermittelt werden: ")
+   end
+end
+
+if exists(note)
+   if any_match(note,'.*[a-z].*|^\s*$')
+      copy_field(_citekey,PPN)
+      set_field(Note,"Das Feld note konnte nicht ermittelt werden: ")
+   end
+end
+
+if exists(pages)
+   if any_match(pages,'\d{1,}-(\s)*$|^(\s)*-\d{1,}|^\s*$')
+      copy_field(_citekey,PPN)
+      set_field(Pages,"Das Feld pages konnte nicht ermittelt werden: ")
+   end
+end
+
+if exists(number)
+   if any_match(number,'.*([a-z]|\.|\(|\)|\,).*|^\s*$')
+      copy_field(_citekey,PPN)
+      set_field(Number,"Das Feld number konnte nicht ermittelt werden: ")
+   end
+end
+
+if exists(volume)
+   if any_match(volume,'.*([a-z]|\.|\(|\)|\,).*|^\s*$')
+      copy_field(_citekey,PPN)
+      set_field(Volume,"Das Feld volume konnte nicht ermittelt werden: ")
+   end
+end
+
+if exists(year)
+   unless any_match(year,"^(\d{4}|\d{4}\/\d{4}|\d{4}\/\d{2})$")
+      copy_field(_citekey,PPN)
+      set_field(Year,"Das Feld year konnte nicht ermittelt werden: ")
+   end
+end
+
+if exists(abstract)
+   if any_match(abstract,'^[Nn]o [Aa]bstract|^\s*$')
+      copy_field(_citekey,PPN)
+      set_field(Abstract,"Das Feld abstract konnte nicht ermittelt werden: ")
+   end
+end
+
+if exists(abstract_i)
+   if any_match(abstract_i,'^[Nn]o [Aa]bstract|^\s*$')
+      copy_field(_citekey,PPN)
+      set_field(Abstract,"Das Feld abstract konnte nicht ermittelt werden: ")
+   end
+end
+
+if exists(abstract_ii)
+   if any_match(abstract_ii,'^[Nn]o [Aa]bstract|^\s*$')
+      copy_field(_citekey,PPN)
+      set_field(Abstract,"Das Feld abstract konnte nicht ermittelt werden: ")
+   end
+end
+
+if exists(abstractor)
+   unless any_match(abstractor,'^\w{2,15}\,\s\w{2,15}(\s\w{1,5})*$|^author$|^publisher$|^editor$')
+      copy_field(_citekey,PPN)
+      set_field(Abstractor,"Das Feld abstractor konnte nicht ermittelt werden: ")
+   end
+end
+
+if exists(abstractor_i)
+   unless any_match(abstractor_i,'^\w{2,15}\,\s\w{2,15}(\s\w{1,5})*$|^author$|^publisher$|^editor$')
+      copy_field(_citekey,PPN)
+      set_field(Abstractor,"Das Feld abstractor konnte nicht ermittelt werden: ")
+   end
+end
+
+if exists(abstractor_ii)
+   unless any_match(abstractor_ii,'^\w{2,15}\,\s\w{2,15}(\s\w{1,5})*$|^author$|^publisher$|^editor$')
+      copy_field(_citekey,PPN)
+      set_field(Abstractor,"Das Feld abstractor konnte nicht ermittelt werden: ")
+   end
+end
+
+if exists(series)
+   if any_match(series,'^\d{1,}$|^\s*$')
+      copy_field(_citekey,PPN)
+      set_field(Series,"Das Feld series konnte nicht ermittelt werden: ")
+   end
+end
+
+if exists(series_i)
+   if any_match(series_i,'^\d{1,}$|^\s*$')
+      copy_field(_citekey,PPN)
+      set_field(Series,"Das Feld series konnte nicht ermittelt werden: ")
+   end
+end
+
+if exists(series_ii)
+   if any_match(series_ii,'^\d{1,}$|^\s*$')
+      copy_field(_citekey,PPN)
+      set_field(Series,"Das Feld series konnte nicht ermittelt werden: ")
+   end
+end
+
+if exists(crossref)
+   unless any_match(crossref,'^00(\d{7}|\d{6}X)$')
+      copy_field(_citekey,PPN)
+      set_field(Crossref,"Das Feld crossref konnte nicht ermittelt werden: ")
+   end
+end
+
+if any_match(_id,"006620523|004465490|001406264|004534301|002696894|001406183|006634915|001407953|001405993|006567428|001406116|001413791|004214676|001408674|001406132|001405667|001408267|001413996|00140623X|005179947|001406248|006568955|001408348|001405470|004512251|001406280|001408704|001228846|001405977|00140833X|004375769|001407740|001414771|001400495|001410199|00245517X|001408690|00744687X")
+   copy_field(_id,PPN)
+   set_field(Ausschluss,"Der Titel gehört möglicherweise ausgeschlossen: ")
+end
+
+if any_match(crossref,"006620523|004465490|001406264|004534301|002696894|001406183|006634915|001407953|001405993|006567428|001406116|001413791|004214676|001408674|001406132|001405667|001408267|001413996|00140623X|005179947|001406248|006568955|001408348|001405470|004512251|001406280|001408704|001228846|001405977|00140833X|004375769|001407740|001414771|001400495|001410199|00245517X|001408690|00744687X")
+   copy_field(_id,PPN)
+   set_field(Ausschluss,"Der Titel gehört möglicherweise ausgeschlossen: ")
+end
+
+
+remove(record)
+
+select exists(PPN)

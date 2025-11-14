@@ -1,0 +1,4 @@
+# sru_map.fix
+pica_map(019@$a,sru_country,split:1)
+join_field(sru_country,", ")
+retain(sru_country)

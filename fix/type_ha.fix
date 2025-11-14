@@ -1,0 +1,76 @@
+# type_ha.fix
+# Erstellt eine Liste mit allen PPN und ihrer zugehörigen Materialart. Wird für die Bestimmung des types der Rezensionen benötigt.
+# catmandu convert PICA --type plain to CSV --fix ./fix/type_ha.fix --fields ppn,type < dmpbms_${Date}.pp > ./data/type_ha.csv
+
+if pica_match(002@$0,'[ACEHOZ][afF].*')
+   pica_map(003@$0,ppn)
+   do pica_each()
+      #festschrift
+      if pica_match(013D$9,'002600943')
+	     set_field(type,'be')
+	  #proceeding
+	  elsif pica_match(013D$9,'005983479')
+	     set_field(type,'bs')
+	  #facsimile
+	  elsif pica_match(013D$9,'002493284')
+	     set_field(type,'bf')
+	  end
+   end
+   do pica_each()
+      #dissertation
+      if pica_match(037C$d,'Dissertation')
+         set_field(type,'dd')
+	  #thesis
+      elsif pica_match(037C$d,'Bachelorarbeit|Diplomarbeit|Habilitationsschrift|Habilitation|Lizensiatsarbeit|Magisterarbeit|Masterarbeit')
+         set_field(type,'dm')
+      end
+   end
+   unless exists(type)
+     #collection
+     if pica_match(099@$b,'sb')
+        set_field(type,bc)
+	 #translation
+     elsif pica_match(010@$c,'.*')
+        set_field(type,'bt')
+     #book
+     else 
+	    set_field(type,'bm')
+     end
+   end
+end
+
+#journal
+if pica_match(002@$0,'[ACEHOZ]b.*')
+   pica_map(003@$0,ppn)
+   set_field(type,'bp')
+end
+
+#weblog
+if pica_match(002@$0,'[O][afF].*')
+   do pica_each()
+      if pica_match(013D$9,'002913119')
+	     pica_map(003@$0,ppn)
+         set_field(type,'bg')
+	  end
+   end
+end
+
+#electronic resource
+if pica_match(002@$0,'[S][afFbcdv].*')
+   pica_map(003@$0,ppn)
+   set_field(type,'er')
+end
+
+#recording/motion picture
+if pica_match(002@$0,'B.*')
+   pica_map(003@$0,ppn)
+   do pica_each()
+      if pica_match(002C$b,'prm')
+         set_field(type,'mr')
+      elsif pica_match(002C$b,'tdi')
+         set_field(type,'mp')
+	  end
+   end
+end
+
+select exists(ppn)

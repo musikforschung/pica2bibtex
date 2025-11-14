@@ -1,0 +1,32 @@
+# formschlagwort.fix
+# catmandu convert PICA --type plain to CSV --fields Festschrift,Konferenzschrift,PPN --fix ./pica2bibtex/fix/formschlagwort.fix < dmpbms_${Date}.pp > formschlagwort.csv
+
+do pica_each()
+   pica_map(013D$9,form_sw.$append)
+end
+
+if pica_match(002@$0,'[A,B,C,E,H,O,S,V,Z][a,F,f,v]')
+   if pica_match(021A,'.*[F,f]estschrift.*')
+      unless any_match(form_sw.*,'002600943')
+		    pica_map(003@$0,'PPN')
+			set_field(Festschrift,'Feld 013D $9002600943 \(Festschrift\) prüfen')
+	  end
+   end
+end
+do pica_each()
+   pica_map(021A,keyword.$append,join:' ')
+   pica_map(030F,keyword.$append,join:' ')
+end
+
+if pica_match(002@$0,'[A,B,C,E,H,O,S,V,Z][a,F,f,v]')
+   if any_match(keyword.*,'.*Konferenz.*|.*[C,c]onference.*|.*[W,w]orkshop.*|.*[S,s]ymposi[um,on].*|.*[C,c]ongres.*|.*[C,c]ongrès.*|.*Tagung.*|.*proceedin[g,gs].*')
+      unless any_match(form_sw.*,'005983479')
+		    pica_map(003@$0,'PPN')
+			set_field(Konferenzschrift,'Feld 013D $9005983479 \(Konferenzschrift\) prüfen')
+	  end
+   end
+end
+
+
+remove(record)
+select exists(PPN)

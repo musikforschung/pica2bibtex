@@ -1,0 +1,864 @@
+# pica2bibtex.fix
+# catmandu -I ../lib convert PICA --type plain to BibTeX --fix ./pica2bibtex/fix/pica2bibtex.fix --fix ./pica2bibtex/fix/replace.fix < dmpbms_${Date}.pp 1> dmpbms_${Date}.btx
+
+reject pica_match(003@0,'006620523|004465490|001406264|004534301|002696894|001406183|006634915|001407953|001405993|006567428|001406116|001413791|004214676|001408674|001406132|001405667|001408267|001413996|00140623X|005179947|001406248|006568955|001408348|001405470|004512251|001406280|001408704|001228846|001405977|00140833X|004375769|001407740|001414771|001400495|001410199|00245517X|001408690|00744687X')
+
+reject pica_match(039B9,'006620523|004465490|001406264|004534301|002696894|001406183|006634915|001407953|001405993|006567428|001406116|001413791|004214676|001408674|001406132|001405667|001408267|001413996|00140623X|005179947|001406248|006568955|001408348|001405470|004512251|001406280|001408704|001228846|001405977|00140833X|004375769|001407740|001414771|001400495|001410199|00245517X|001408690|00744687X')
+
+# reject 036F$9 noch einbeziehen
+
+pica_map('003@0','ppn');
+pica_map('004A0','isbn',join:', ');
+pica_map('004V0','doi');
+pica_map('010@a','language',join:', ');
+pica_map('011@ab','year',join:'-');
+pica_map('019@a','country',join:', ');
+pica_map('021Aad','title',join:' : ');
+pica_map('037Ce','institution.$append');
+
+# url / 017C / 017D
+if pica_match(017C3,"Volltext")
+   pica_map('017Cu','url',join:', ')
+elsif
+   pica_match(017C5,"34")
+   pica_map('017Cu','url',join:', ')
+end
+if pica_match(017D3,"Volltext")
+   pica_map('017Du','url',join:', ')
+elsif
+   pica_match(017D5,"34")
+   pica_map('017Du','url',join:', ')
+end
+
+# author (PICA3 3000)
+if pica_match('028A8')
+if pica_match('028Ac')
+   pica_map('028Ac8','author.$append',join:' ',pluck:1)	
+elsif pica_match('028A8')
+      pica_map('028A8','author.$append')
+	end 
+end   
+
+if pica_match('028Ad')
+if pica_match('028Ac')											
+   pica_map('028Acad','author.$append',join:', ',pluck:1)
+elsif pica_match('028Aad')
+      pica_map('028Aad','author.$append',join:', ',pluck:1)
+   end
+end
+
+if pica_match('028AP')
+if pica_match('028An')
+   pica_map('028APn','author.$append',join:' ',pluck:1)
+elsif pica_match('028AP')
+      pica_map('028AP','author.$append')
+   end
+end
+
+# author PICA3 (3001-3002)
+if pica_match('028B8')
+if pica_match('028Bc')
+   pica_map('028Bc8','author.$append',join:' ',pluck:1)	
+elsif pica_match('028B8')
+      pica_map('028B8','author.$append')
+   end 
+end   
+
+if pica_match('028Bd')
+if pica_match('028Bc')
+   pica_map('028Bcad','author.$append',join:', ',pluck:1)
+elsif pica_match('028Bad')
+      pica_map('028Bad','author.$append',join:', ',pluck:1)
+   end
+end
+
+if pica_match('028BP')
+if pica_match('028Bn')
+   pica_map('028BPn','author.$append',join:' ',pluck:1)
+elsif pica_match('028BP')
+      pica_map('028BP','author.$append')
+   end
+end
+
+# 028C
+do pica_each()
+   unless pica_match(028CB,'.*')
+      pica_update(028CB,'aut', add: 1)
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"aut|author|ivr|ive|Verfasser|VerfasserIn|Verfasserin")
+   if pica_match('028Ca')
+   if pica_match('028Cc')
+      pica_map('028Ccad','author.$append',join:', ',pluck:1)
+   else pica_map('028Cad','author.$append',join:', ',pluck:1)
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"aut|author|ivr|ive|Verfasser|VerfasserIn|Verfasserin")
+   if pica_match('028C8')
+   if pica_match('028Cc')
+      pica_map('028Cc8','author.$append',join:' ',pluck:1)
+   else pica_map('028C8','author.$append')  
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"aut|author|ivr|ive|Verfasser|VerfasserIn|Verfasserin")
+   if pica_match('028CP')
+   if pica_match('028Cn')
+      pica_map('028CPn','author.$append',join:' ',pluck:1)
+   else pica_map('028CP','author.$append')
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"edt|isb|Hrsg|Hrsg.")
+   if pica_match('028Ca')
+   if pica_match('028Cc')
+      pica_map('028Ccad','editor.$append',join:', ',pluck:1)
+   else pica_map('028Cad','editor.$append',join:', ',pluck:1)
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"edt|isb|Hrsg|Hrsg.")
+   if pica_match('028C8')
+   if pica_match('028Cc')
+      pica_map('028Cc8','editor.$append',join:' ',pluck:1)
+   else pica_map('028C8','editor.$append')  
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"edt|isb|Hrsg|Hrsg.")
+   if pica_match('028CP')
+   if pica_match('028Cn')
+      pica_map('028CPn','editor.$append',join:' ',pluck:1)
+   else pica_map('028CP','editor.$append')
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"translator|trl")
+   if pica_match('028Ca')
+   if pica_match('028Cc')
+      pica_map('028Ccad','author_translator.$append',join:', ',pluck:1)
+   else pica_map('028Cad','author_translator.$append',join:', ',pluck:1)
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"translator|trl")
+   if pica_match('028C8')
+   if pica_match('028Cc')
+      pica_map('028Cc8','author_translator.$append',join:' ',pluck:1)
+   else pica_map('028C8','author_translator.$append')  
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"translator|trl.")
+   if pica_match('028CP')
+   if pica_match('028Cn')
+      pica_map('028CPn','author_translator.$append',join:' ',pluck:1)
+   else pica_map('028CP','author_translator.$append')
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"ill|ill.")
+   if pica_match('028Ca')
+   if pica_match('028Cc')
+      pica_map('028Ccad','author_illustrator.$append',join:', ',pluck:1)
+   else pica_map('028Cad','author_illustrator.$append',join:', ',pluck:1)
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"ill|ill.")
+   if pica_match('028C8')
+   if pica_match('028Cc')
+      pica_map('028Cc8','author_illustrator.$append',join:' ',pluck:1)
+   else pica_map('028C8','author_illustrator.$append')  
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"ill|ill.")
+   if pica_match('028CP')
+   if pica_match('028Cn')
+      pica_map('028CPn','author_illustrator.$append',join:' ',pluck:1)
+   else pica_map('028CP','author_illustrator.$append')
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"dgs|Akademischer Betreuer|Akademische Betreuerin")
+   if pica_match('028Ca')
+   if pica_match('028Cc')
+      pica_map('028Ccad','author_supervisor.$append',join:', ',pluck:1)
+   else pica_map('028Cad','author_supervisor.$append',join:', ',pluck:1)
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"dgs|Akademischer Betreuer|Akademische Betreuerin")
+   if pica_match('028C8')
+   if pica_match('028Cc')
+      pica_map('028Cc8','author_supervisor.$append',join:' ',pluck:1)
+   else pica_map('028C8','author_supervisor.$append')  
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"dgs|Akademischer Betreuer|Akademische Betreuerin")
+   if pica_match('028CP')
+   if pica_match('028Cn')
+      pica_map('028CPn','author_supervisor.$append',join:' ',pluck:1)
+   else pica_map('028CP','author_supervisor.$append')
+   end
+   end
+   end
+end 
+
+do pica_each()
+   if pica_match('028C4B',"tlbt|ctb|oth|pan|Mitarb.|Bearb.")
+   if pica_match('028Ca')
+   if pica_match('028Cc')
+      pica_map('028Ccad','author_collaborator.$append',join:', ',pluck:1)
+   else pica_map('028Cad','author_collaborator.$append',join:', ',pluck:1)
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"tlbt|ctb|oth|pan|Mitarb.|Bearb.")
+   if pica_match('028C8')
+   if pica_match('028Cc')
+      pica_map('028Cc8','author_collaborator.$append',join:' ',pluck:1)
+   else pica_map('028C8','author_collaborator.$append')  
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"tlbt|ctb|oth|pan|Mitarb.|Bearb.")
+   if pica_match('028CP')
+   if pica_match('028Cn')
+      pica_map('028CPn','author_collaborator.$append',join:' ',pluck:1)
+   else pica_map('028CP','author_collaborator.$append')
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"wac|Komm.")
+   if pica_match('028Ca')
+   if pica_match('028Cc')
+      pica_map('028Ccad','author_commentator.$append',join:', ',pluck:1)
+   else pica_map('028Cad','author_commentator.$append',join:', ',pluck:1)
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"wac|Komm.")
+   if pica_match('028C8')
+   if pica_match('028Cc')
+      pica_map('028Cc8','author_commentator.$append',join:' ',pluck:1)
+   else pica_map('028C8','author_commentator.$append')  
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"wac|Komm.")
+   if pica_match('028CP')
+   if pica_match('028Cn')
+      pica_map('028CPn','author_commentator.$append',join:' ',pluck:1)
+   else pica_map('028CP','author_commentator.$append')
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"com")
+   if pica_match('028Ca')
+   if pica_match('028Cc')
+      pica_map('028Ccad','author_compiled.$append',join:', ',pluck:1)
+   else pica_map('028Cad','author_compiled.$append',join:', ',pluck:1)
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"com")
+   if pica_match('028C8')
+   if pica_match('028Cc')
+      pica_map('028Cc8','author_compiled.$append',join:' ',pluck:1)
+   else pica_map('028C8','author_compiled.$append')  
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"com")
+   if pica_match('028CP')
+   if pica_match('028Cn')
+      pica_map('028CPn','author_compiled.$append',join:' ',pluck:1)
+   else pica_map('028CP','author_compiled.$append')
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"wpr")
+   if pica_match('028Ca')
+   if pica_match('028Cc')
+      pica_map('028Ccad','author_foreword.$append',join:', ',pluck:1)
+   else pica_map('028Cad','author_foreword.$append',join:', ',pluck:1)
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"wpr")
+   if pica_match('028C8')
+   if pica_match('028Cc')
+      pica_map('028Cc8','author_foreword.$append',join:' ',pluck:1)
+   else pica_map('028C8','author_foreword.$append')  
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"wpr")
+   if pica_match('028CP')
+   if pica_match('028Cn')
+      pica_map('028CPn','author_foreword.$append',join:' ',pluck:1)
+   else pica_map('028CP','author_foreword.$append')
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"aft")
+   if pica_match('028Ca')
+   if pica_match('028Cc')
+      pica_map('028Ccad','author_afterword.$append',join:', ',pluck:1)
+   else pica_map('028Cad','author_afterword.$append',join:', ',pluck:1)
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"aft")
+   if pica_match('028C8')
+   if pica_match('028Cc')
+      pica_map('028Cc8','author_afterword.$append',join:' ',pluck:1)
+   else pica_map('028C8','author_afterword.$append')  
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"aft")
+   if pica_match('028CP')
+   if pica_match('028Cn')
+      pica_map('028CPn','author_afterword.$append',join:' ',pluck:1)
+   else pica_map('028CP','author_afterword.$append')
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"win")
+   if pica_match('028Ca')
+   if pica_match('028Cc')
+      pica_map('028Ccad','author_introduction.$append',join:', ',pluck:1)
+   else pica_map('028Cad','author_introduction.$append',join:', ',pluck:1)
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"win")
+   if pica_match('028C8')
+   if pica_match('028Cc')
+      pica_map('028Cc8','author_introduction.$append',join:' ',pluck:1)
+   else pica_map('028C8','author_introduction.$append')  
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"win")
+   if pica_match('028CP')
+   if pica_match('028Cn')
+      pica_map('028CPn','author_introduction.$append',join:' ',pluck:1)
+   else pica_map('028CP','author_introduction.$append')
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"hnr")
+   if pica_match('028Ca')
+   if pica_match('028Cc')
+      pica_map('028Ccad','honoured.$append',join:', ',pluck:1)
+   else pica_map('028Cad','honoured.$append',join:', ',pluck:1)
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"hnr")
+   if pica_match('028C8')
+   if pica_match('028Cc')
+      pica_map('028Cc8','honoured.$append',join:' ',pluck:1)
+   else pica_map('028C8','honoured.$append')  
+   end
+   end
+   end
+end
+
+do pica_each()
+   if pica_match('028C4B',"hnr")
+   if pica_match('028CP')
+   if pica_match('028Cn')
+      pica_map('028CPn','honoured.$append',join:' ',pluck:1)
+   else pica_map('028CP','honoured.$append')
+   end
+   end
+   end
+end
+	 
+# corporation (PICA3 3100)
+do pica_each()
+   if pica_match ('029A4',"com")
+      pica_map('029Aa','editor.$append')
+      pica_map('029A8','editor.$append')
+else  pica_map('029Aa','author.$append')
+      pica_map('029A8','author.$append')
+   end
+end
+
+# further corporations (PICA3 3110)
+do pica_each()
+   if pica_match ('029F4',"edt|isb|com")
+      pica_map('029Fa','editor.$append')
+      pica_map('029F8','editor.$append')
+elsif pica_match ('029F4',"ill|ill.") 
+      pica_map('029Fa','author_illustrator.$append')
+      pica_map('029F8','author_illustrator.$append')
+elsif pica_match ('029F4',"trl") 
+      pica_map('029Fa','author_translator.$append')
+      pica_map('029F8','author_translator.$append')
+elsif pica_match ('029F4',"ctb") 
+      pica_map('029Fa','author_collaborator.$append')
+      pica_map('029F8','author_collaborator.$append')
+      elsif pica_match ('029F4',"dgs") 
+      pica_map('029Fa','author_supervisor.$append')
+      pica_map('029F8','author_supervisor.$append')
+elsif pica_match ('029F4',"pbl")
+      pica_map('029Fa','ignore')
+      pica_map('029F8','ignore')
+else  pica_map('029Fa','author.$append')
+      pica_map('029F8','author.$append')
+      end
+end
+
+# proceedings
+if pica_match(013D$9,'005983479')
+   pica_map(013Dx,eventtitle,join:', ')
+   pica_map(013Dz,location,join:', ')
+   pica_map(013Dy,eventdate,join:', ')
+end
+
+#address
+if pica_match(033Ap,'.*')
+   pica_map('033Ap','address',join:', ')
+else
+   pica_map('033D8','address',join:', ')
+end
+
+#(unselbständige Werke) 031A/4070 
+if pica_match(002@$0,'[ABCEHOSVZ]s.*') 
+   pica_map('031Aj','year')
+   pica_map('031Ad','volume')
+   pica_map('031Ae','number')
+   if pica_match(031Ah,'.*')
+      pica_map('031Ah','pages')
+   else
+      pica_map(031Ag,'pages')
+   end	  
+end
+
+#publisher   
+pica_map('033An','publisher',join:', ')
+
+# pages
+pica_map('034Da',tmp_pages)
+split_field(tmp_pages,',')
+if is_array(tmp_pages)
+   do list(path:tmp_pages)
+      trim(.)
+      parse_text(.,'(?<seiten>(\d{1,}-\d{1,})|(\d{1,})|([Mm]{0,3})(?:[Dd]?[Cc]{0,3}|[Cc][DdMm])(?:[Ll]?[Xx]{0,3}|[Xx][LlCc])(?:V[v]?[Ii]{0,3}|[Ii][VvXx])(-([Mm]{0,3})(?:[Dd]?[Cc]{0,3}|[Cc][DdMm])(?:[Ll]?[Xx]{0,3}|[Xx][LlCc])(?:V[v]?[Ii]{0,3}|[Ii][VvXx]))*)')
+   end
+end
+copy_field(tmp_pages.*.seiten,pages.$append)
+join_field(pages,", ")
+
+# notes (PICA3 4061)
+pica_map('034Ma',note)
+replace_all(note,"([\,\;]\s)*Audiosequenz.*([\,\;]\s)*|([\,\;]\s)*Videosequen.*([\,\;]\s)*|Klangbeisp.*|Zeitschriften|Brief.*","")
+replace_all(note,"[0123456789]","")
+replace_all(note,"cm|DDD|Stereo|Mono|Channel Surround Sound|mit |schw.-w. |mit Beiheft|Beiheft|circa |ca\. ","")
+replace_all(note,"music|überw.* |Rätsel und Anleitung.*|color|\(.*\)","")
+split_field(note,",|;")
+trim(note.*)
+lookup(note.*,'./dictionary/note.csv')
+sort_field(note,numeric:1)
+uniq(note)
+join_field(note,', ')
+
+#series/volume/number
+if pica_match(036E/*a)
+   do pica_each()
+      pica_map(036E/*a,tmp_series_title)
+	  pica_map(036E/*l,tmp_series_volume)
+	  pica_map(036E/*h,tmp_series_editor,nested_arrays:1)
+      pica_map(036E/*pm,tmp_series_division,nested_arrays:1)
+      copy_field(tmp_series_title,tmp_series.$append)
+	  rm(tmp_series_title)
+	  if exists(tmp_series_division)
+	     add_field(tmp_series.$append,' : ')
+		 join_field(tmp_series_division,' ; ')
+		 copy_field(tmp_series_division,tmp_series.$append)
+		 rm(tmp_series_division)
+	  end	 
+	  if exists(tmp_series_editor)
+	     add_field(tmp_series.$append,' // ')
+		 copy_field(tmp_series_editor.0,tmp_series.$append)
+		 rm(tmp_series_editor)
+	  end
+	  join_field(tmp_series)
+	  set_array(series.title)
+	  copy_field(tmp_series,series.title)
+      #volume und number trennen
+	  if any_match(tmp_series_volume,'[Nn]r(\.)*|[Nn]o(\.)*|[Hh]eft|[Nn]ummer|H\.')
+         if any_match(tmp_series_volume,'[Jj]g\.|\.\s[Jj]ahrgang|[Vv]ol\.|[Vv]olume|[Bb]d\.|[Bb]and')
+            parse_text(tmp_series_volume,"(?<volume>^.*)\,(?<number>.*)")
+	        replace_all(tmp_series_volume.volume,'[Jj]g\.|\.\s[Jj]ahrgang|[Vv]ol\.|[Vv]olume|[Bb]and|[Bb]d\.',"")
+	        trim(tmp_series_volume.volume)
+	        replace_all(tmp_series_volume.number,'[Nn]r(\.)*|[Nn]o(\.)*|[Hh]eft|[Nn]ummer|H\.',"")
+			replace_all(tmp_series_volume.number,'\(.*\)',"")
+	        trim(tmp_series_volume.number)
+	        copy_field(tmp_series_volume.volume,tmp_volume)
+			copy_field(tmp_series_volume.number,tmp_number)
+			rm(tmp_series_volume)
+		 end
+		 unless 
+		    any_match(tmp_series_volume,'[Jj]g\.|\.\s[Jj]ahrgang|[Vv]ol\.|[Vv]olume|[Bb]d\.|[Bb]and')
+		    copy_field(tmp_series_volume,tmp_number)
+			replace_all(tmp_number,'[Nn]r(\.)*|[Nn]o(\.)*|[Hh]eft|[Nn]ummer|H\.',"")
+			rm(tmp_series_volume)
+	     end
+	  elsif
+         any_match(tmp_series_volume,'\d{1,}\.\d{4}\,\d{1,}|\w{2,}\.*\s*\d{1,}\,\d{1,}')
+         parse_text(tmp_series_volume,"(?<volume>.*)\,(?<number>.*)")
+         replace_all(tmp_series_volume.volume,'\.\d{4}',"")
+         replace_all(tmp_series_volume.volume,'[Jj]g\.|\.\s[Jj]ahrgang|[Vv]ol\.|[Vv]olume|[Bb]and|[Bb]d\.',"")
+         trim(tmp_volume_series.volume)
+		 replace_all(tmp_series_volume.number,'[Nn]r(\.)*|[Nn]o(\.)*|[Hh]eft|[Nn]ummer|H\.',"")
+		 replace_all(tmp_series_volume.number,'\(.*\)',"")
+         trim(tmp_series_volume.number)
+         copy_field(tmp_series_volume.volume,tmp_volume)
+         copy_field(tmp_series_volume.number,tmp_number)
+		 rm(tmp_series_volume)
+	  else
+         replace_all(tmp_series_volume,'[Jj]g\.|\.\s[Jj]ahrgang|[Vv]ol\.|[Vv]olume|[Bb]and|[Bb]d\.',"")
+         trim(tmp_series_volume)
+	     copy_field(tmp_series_volume,tmp_volume)
+		 rm(tmp_series_volume)
+	  end
+      trim(tmp_volume)
+      trim(tmp_number)	  
+	  copy_field(tmp_volume,series.volume)
+	  rm(tmp_volume)
+      copy_field(tmp_number,series.number)
+	  rm(tmp_number)
+	  copy_field(series,series_coll.$append)
+	  rm(tmp_series)
+	  rm(series)
+   end
+   if exists(series_coll.2)
+      copy_field(series_coll.2.volume,volume_III)
+	  copy_field(series_coll.2.title,series_III)
+	  copy_field(series_coll.2.number,number_III)
+	  copy_field(series_coll.1.volume,volume_II)
+	  copy_field(series_coll.1.title,series_II)
+	  copy_field(series_coll.1.number,number_II)
+	  copy_field(series_coll.0.volume,volume_I)
+	  copy_field(series_coll.0.title,series_I)
+	  copy_field(series_coll.0.number,number_I)
+   end
+   unless exists(series_coll.2)
+      if exists(series_coll.1)
+	     copy_field(series_coll.1.volume,volume_II)
+	     copy_field(series_coll.1.title,series_II)
+	     copy_field(series_coll.1.number,number_II)
+	     copy_field(series_coll.0.volume,volume_I)
+	     copy_field(series_coll.0.title,series_I)
+	     copy_field(series_coll.0.number,number_I)
+	  end
+   end
+   unless exists(series_coll.1)
+      copy_field(series_coll.0.volume,volume)
+	  copy_field(series_coll.0.title,series)
+	  copy_field(series_coll.0.number,number)
+   end
+end
+
+# title/415X $a (Haupttitel) : $d (Titelzusatz) ; $l (Bandzählung) . 036C/01$m : 036C/01$a ; 036C/01$l // $h (Verantwortlichkeitsangabe) . 021A$a (Titel) : 021A$d (Titelzusatz)
+if pica_match(002@$0,"A[Ff].*")
+   if pica_match(036C,".*")
+      set_array(af_title)
+	  set_array(af_title_II)
+      pica_map(036C$a,'tmp_series_title')
+	  replace_all(tmp_series_title,"@","")
+	  pica_map(036C$d,'tmp_series_subtitle')
+	  pica_map(036C$l,'tmp_series_volume')
+	  pica_map(021A$a,'tmp_af_title')
+   end
+end
+do pica_each()
+   if pica_match(036C/0.,".*")
+      pica_map(036C/0.$m,'tmp_subdivision_count.$append')
+	  pica_map(036C/0.$a,'tmp_subdivision_title.$append')
+	  replace_all(tmp_subdivision_title.*,"@","")
+	  pica_map(036C/0.$l,'tmp_subdivision_volume.$append')
+	  pica_map(036C/0.$h,'tmp_subdivision_editor.$append')
+   end
+end
+copy_field(tmp_series_title,af_title.$append)
+if exists(tmp_series_subtitle)
+   add_field(af_title.$append," : ")
+   copy_field(tmp_series_subtitle,af_title.$append)
+end
+if exists(tmp_series_volume)
+   add_field(af_title.$append," ; ")
+   copy_field(tmp_series_volume,af_title.$append)
+end 
+
+join_field(af_title)
+copy_field(af_title,af.0)
+
+if exists(tmp_subdivision_count.0)
+   copy_field(tmp_subdivision_count.0,af_title_II.$append)
+end 
+if exists(tmp_subdivision_count.0)
+   if exists(tmp_subdivision_title.0)
+      add_field(af_title_II.$append," : ")
+   end
+end
+if exists(tmp_subdivision_title.0)
+   copy_field(tmp_subdivision_title.0,af_title_II.$append)
+end   
+if exists(tmp_subdivision_volume.0)
+   add_field(af_title_II.$append," ; ")
+   copy_field(tmp_subdivision_volume.0,af_title_II.$append)
+end  
+ if exists(tmp_subdivision_editor.0)
+   add_field(af_title_II.$append," // ")
+   copy_field(tmp_subdivision_editor.0,af_title_II.$append)
+end   
+add_field(af_title.$append,". ")
+if exists(tmp_subdivision_count.1)
+   add_field(af_title_II.$append,". ")
+   copy_field(tmp_subdivision_count.1,af_title_II.$append)
+end   
+if exists(tmp_subdivision_title.1)
+   add_field(af_title_II.$append," : ")
+   copy_field(tmp_subdivision_title.1,af_title_II.$append)
+end  
+if exists(tmp_subdivision_volume.1)
+   add_field(af_title_II.$append," ; ")
+   copy_field(tmp_subdivision_volume.1,af_title_II.$append)
+end  
+ if exists(tmp_subdivision_editor.1)
+   add_field(af_title_II.$append," // ")
+   copy_field(tmp_subdivision_editor.1,af_title_II.$append)
+end   
+join_field(af_title_II)
+copy_field(af_title_II,af.1)
+join_field(af,'. ')
+
+# abstract (PICA3 4207)
+do pica_each()
+   if pica_match(047Ia,'^[nN]o [aA]bstract.*')
+      pica_remove(047Ia)
+   end	  
+   pica_map(047Ia,tmp.$append)
+end
+
+if exists(tmp.1)
+   parse_text(tmp.1,"(?<abstract_II>.*\.)\s*\((?<abstractor_II>.*)\)")
+   if exists(tmp.1.abstractor_II)
+      move_field(tmp.1.abstract_II,abstract_II)
+      move_field(tmp.1.abstractor_II,abstractor_II)
+	  replace_all(abstractor_II,'(\,\s)*gek.*(\,)*',"")
+	  trim(abstractor_II)
+   else
+      move_field(tmp.1,abstract_II)
+   end
+   parse_text(tmp.0,"(?<abstract_I>.*\.)\s*\((?<abstractor_I>.*)\)")
+   if exists(tmp.0.abstractor_I)
+      move_field(tmp.0.abstract_I,abstract_I)
+      move_field(tmp.0.abstractor_I,abstractor_I)
+	  replace_all(abstractor_I,'(\,\s)*gek.*(\,)*',"")
+	  trim(abstractor_I)
+   else
+      move_field(tmp.0,abstract_I)
+   end
+else
+   parse_text(tmp.0,"(?<abstract>.*\.)\s*\((?<abstractor>.*)\)")
+   if exists(tmp.0.abstractor)
+      move_field(tmp.0.abstract,abstract)
+      move_field(tmp.0.abstractor,abstractor)
+	  replace_all(abstractor,'(\,\s)*gek.*(\,)*',"")
+	  trim(abstractor)
+   else
+      move_field(tmp.0,abstract)
+   end
+end
+
+trim(abstract)
+trim(abstract_I)
+trim(abstract_II)
+
+if any_match(abstractor,'.*\s.*')
+   parse_text(abstractor,"(?<firstname>^.*(\s.*)*)\s(?<lastname>\w{2,}(\-\w{2,})*$)")
+   move_field(abstractor.firstname,tmp_abstractor.1)
+   move_field(abstractor.lastname,tmp_abstractor.0)
+   join_field(tmp_abstractor,', ')
+   copy_field(tmp_abstractor,abstractor)
+   rm(tmp_abstractor)
+end
+if any_match(abstractor_I,'.*\s.*')
+   parse_text(abstractor_I,"(?<firstname>^.*(\s.*)*)\s(?<lastname>\w{2,}(\-*\w{2,})*$)")
+   move_field(abstractor_I.firstname,tmp_abstractor.1)
+   move_field(abstractor_I.lastname,tmp_abstractor.0)
+   join_field(tmp_abstractor,', ')
+   copy_field(tmp_abstractor,abstractor_I)
+   rm(tmp_abstractor)
+end
+if any_match(abstractor_II,'.*\s.*')
+   parse_text(abstractor_II,"(?<firstname>^.*(\s.*)*)\s(?<lastname>\w{2,}(\-*\w{2,})*$)")
+   move_field(abstractor_II.firstname,tmp_abstractor.1)
+   move_field(abstractor_II.lastname,tmp_abstractor.0)
+   join_field(tmp_abstractor,', ')
+   copy_field(tmp_abstractor,abstractor_II)
+   rm(tmp_abstractor)
+end
+
+## document types
+# carrier
+if pica_match('002@0/0-1','[A,B,C,E,H,O,S,Z][a,b,f,F]')
+   pica_map(003@$0,type)
+   lookup(type,"./data/type_ha.csv")
+end
+#articles
+if pica_match('002@0/0-1','[A,B,C,E,H,O,S,Z]s')
+   if pica_match(099@i/0,'J|B')
+      pica_map(039B$9,type)
+      lookup(type,"./data/type_as.csv")
+   end
+end
+#review	 
+if pica_match('002@0/0-1','[A,B,C,E,H,O,S,Z]s')
+   if pica_match('099@c/0-2','re')
+      pica_map('039P$9',tmp,split:1)
+	  copy_field(tmp.0,type)
+	  lookup(type,"./data/type_re.csv")
+	  join_field(tmp,"_")
+      copy_field(tmp,'revieweditem')
+   end
+end   
+remove_field(tmp)
+# article + review: crossref + countrycode
+if pica_match('099@i',[BJ])
+   pica_map('039B9','crossref')
+   pica_map('039B9','country')
+   lookup(country,"./data/countrycodelist.csv")
+   if any_match(country,"\d{7,}")
+      move_field(country,tmp_sru)
+	  prepend(tmp_sru,'pica.ppn=')
+	  search_sru(tmp_sru,'http://sru.k10plus.de/bmsonline!rec=1',recordschema:picaxml,parser:picaxml,fixes:'./fix/sru_map.fix')
+	  if is_array(tmp_sru)
+	     copy_field(tmp_sru.*.sru_country,country)
+	  end
+   end
+end
+
+# language_original
+if pica_match(010@$c,'.*')
+   set_field(type,'bt')
+   pica_map(010@$c,'language_original',split: 1)
+   join_field(language_original,', ')
+end
+
+vacuum()
+
+remove_field('record');
+
