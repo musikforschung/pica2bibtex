@@ -1,5 +1,5 @@
 # type_as.fix
-# Erstellt eine Liste der HAs ihrer PPN und ihrer zugehörigen Materialart. Wird für die Bestimmung des types der Aufsätze benötigt.
+# Erstellt eine Liste der HAs, ihrer PPN und ihrer zugehörigen Materialart. Wird für die Bestimmung des types der Aufsätze benötigt.
 # catmandu convert PICA --type plain to CSV --fix ./fix/type_as.fix --fields ppn,type < dmpbms_${Date}.pp > ./data/type_as.csv
 
 if pica_match(002@$0,'[ACEHOZ][afF].*')

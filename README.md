@@ -2,7 +2,7 @@
 
 <summary>us English version (click here)</summary>
 
-# Catmandu_PICAtoBibTex
+# pica2bibtex
 
 Transformation of bibliographic data from PICA Plain format to BibTeX format for RILM
 
@@ -10,11 +10,26 @@ The German editorial office of the Répertoire International de Littérature Mus
 
 # Files description
 
-* [countrycode.fix](https://github.com/musikforschung/Catmandu_PICAtoBibTeX/blob/main/countrycode.fix) selects the country codes and IDs of all journals and collections. The loader codes are written to a csv file and transferred to the essays contained in the journals or collections in a later step.
-* [festschrift_proceeding.fix](https://github.com/musikforschung/Catmandu_PICAtoBibTeX/blob/main/festschrift_proceeding.fix) selects the IDs of all conference and festschriften and assigns the RILM-tag to them. The selected RILM-tags and IDs are written to a csv file and in a later step transferred to the articles contained in the conference and festschrift proceedings.
-* [note.csv](https://github.com/musikforschung/Catmandu_PICAtoBibTeX/blob/main/note.csv) contains the illustration details of the PICA field 034M and the corresponding RILM tag.
-* [picafix.fix](https://github.com/musikforschung/Catmandu_PICAtoBibTeX/blob/main/picafix.fix) contains the script for transforming the necessary PICA+ data into the BibTeX format.
-* [replace.fix](https://github.com/musikforschung/Catmandu_PICAtoBibTeX/blob/main/replace.fix) is needed for cleaning up the transformed data.
+dictionary
+
+* [note.csv](https://github.com/musikforschung/pica2bibtex/blob/main/dictionary/note.csv) contains illustration details of the PICA field 034M and the corresponding RILM tag.
+
+fix
+
+* [countrycode.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/countrycode.fix) selects the country codes and IDs of all journals and collections. The loader codes are written to a csv file and transferred to the essays contained in the journals or collections in a later step.
+* [fehlermeldung_bms.fix] (https://github.com/musikforschung/pica2bibtex/blob/main/fix/fehlermeldung_bms.fix) validates the transformed BibTeX data.
+* [formschlagwort_bms.fix] (https://github.com/musikforschung/pica2bibtex/blob/main/fix/formschlagwort_bms.fix) checks PICA field 013D for missing information.
+* [pica2bibtex.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/picafix.fix) contains fixes for transforming the necessary PICA+ data into the BibTeX format.
+* [replace.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/replace.fix) is needed for cleaning up the transformed data.
+* [sru_map.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/sru_map.fix) is needed for adding the country of publication to the articles of journals and collections.
+* [stat.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/stat.fix) creates statistics of the transformed data.
+* [type_as.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/type_as.fix) is needed to determine the RILM document type of articles in journals and collections.
+* [type_ha.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/type_ha.fix) is needed to determine the RILM document type of books, journals, electronic ressources, weblogs, theses ... .
+* [type_re.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/type_re.fix) is needed to determine the RILM document type of reviews.
+
+shell
+
+* [bms.sh](https://github.com/musikforschung/pica2bibtex/blob/main/shell/bms.sh) Bash script bash script to execute all steps of the transformation from PICA to BibTex for RILM.
 
 # Required Catmandu modules
 
@@ -23,23 +38,17 @@ The German editorial office of the Répertoire International de Littérature Mus
 
 # Authors
 
-* [BibTeX_bms.pm](https://github.com/musikforschung/Catmandu_PICAtoBibTeX/blob/main/BibTeX_bms.pm):
-Nicolas Steenlant, nicolas.steenlant at ugent.be; edited by René Wallor
-
-* files included in [Fix_bms](https://github.com/musikforschung/Catmandu_PICAtoBibTeX/blob/main/Fix_bms):
+* files included in [fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/):
 René Wallor, wallor at sim.spk-berlin.de
 
 # Contributors
 
-* [picafix.fix](https://github.com/musikforschung/Catmandu_PICAtoBibTeX/blob/main/picafix.fix):
+* [pica2bibtex.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/pica2bibtex.fix):
 Johann Rolschewski, jorol at cpan.org
 
 # License an copyright
 
-* [BibTeX_bms.pm](https://github.com/musikforschung/Catmandu_PICAtoBibTeX/blob/main/BibTeX_bms.pm):
-Copyright (c) 2021 by Nicolas Steenlant
-
-* files in [Fix_bms](https://github.com/musikforschung/Catmandu_PICAtoBibTeX/blob/main/Fix_bms):
+* files in [fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/):
 Copyright (c) 2022 Stiftung Preußischer Kulturbesitz - Staatliches Institut für Musikforschung
 
 This program is free software; you can redistribute it and/or modify it under the terms of either: the GNU General Public License as published by the Free Software Foundation; or the Artistic License.
@@ -64,12 +73,26 @@ Am Staatlichen Institut für Musikforschung (SIM) befindet sich die deutsche Red
 
 # Beschreibung der Dateien
 
-* [BibTeX_bms.pm](https://github.com/musikforschung/Catmandu_PICAtoBibTeX/blob/main/BibTeX_bms.pm) enthält einige RILM-spezifische tags, die im ursprünglichen Catmandu [BibTeX Modul](https://github.com/LibreCat/Catmandu-BibTeX/tree/main/lib/Catmandu/Exporter) nicht unterstützt werden: abstractor, author_afterword, author_collaborator, author_commentator, author_compiled, author_foreword, author_illustrator, author_introduction, author_supervisor, author_translator, country, crossref, eventdate, eventtitle, honoured, language_original, reviewed-item.
-* [countrycode.fix](https://github.com/musikforschung/Catmandu_PICAtoBibTeX/blob/main/countrycode.fix) selektiert die Ländercodes und IDs aller Zeitschriften und Sammelbände. Die Ländercodes werden in eine csv-Datei geschrieben und in einem späteren Schritt auf die in den Zeitschriften und Sammelbänden enthaltenen Aufsätze übertragen.
-* [festschrift_proceeding.fix](https://github.com/musikforschung/Catmandu_PICAtoBibTeX/blob/main/festschrift_proceeding.fix) selektiert die IDs aller Konferenz- und Festschriften und ordnet ihnen den entsprechenden RILM-tag zu. Die selektierten RILM-tags und IDs werden in eine csv-Datei geschrieben und in einem späteren Schritt auf die in den Konferenz- und Festschriften enthaltenen Aufsätzen übertragen.
-* [note.csv](https://github.com/musikforschung/Catmandu_PICAtoBibTeX/blob/main/note.csv) enthält die Illustrationsangaben des PICA-Feldes 034M und den entsprechenden RILM-tag.
-* [picafix.fix](https://github.com/musikforschung/Catmandu_PICAtoBibTeX/blob/main/picafix.fix) enthält das Script für die Transformation der notwendigen PICA+ Daten in das Format BibTeX.
-* [replace.fix](https://github.com/musikforschung/Catmandu_PICAtoBibTeX/blob/main/replace.fix) wird für die Bereinigung der transformierten Daten benötigt.
+dictionary
+
+* [note.csv](https://github.com/musikforschung/pica2bibtex/blob/main/dictionary/note.csv) enthält Angaben zu Illustrationen us dem Feld 034M und die jeweils entsprechenden RILM-tags.
+
+fix
+
+* [countrycode.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/countrycode.fix) ermittelt die Ländercodes von Zeitschriften und Sammlungen zur Weitergabe an die enthaltenen Aufsätze.
+* [fehlermeldung_bms.fix] (https://github.com/musikforschung/pica2bibtex/blob/main/fix/fehlermeldung_bms.fix) validiert die transformierten BibTeX-Daten.
+* [formschlagwort_bms.fix] (https://github.com/musikforschung/pica2bibtex/blob/main/fix/formschlagwort_bms.fix) überpfüft das Pica-Feld 013D auf fehlende Formschlagwörter.
+* [pica2bibtex.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/picafix.fix) fixes zur Transformation der PICA-Plain Daten nach BibTeX.
+* [replace.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/replace.fix) wird für die Bereinigung der transformierten BibTeX-Daten benötigt.
+* [sru_map.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/sru_map.fix) Ermittlung und Ergänzung von Ländercodes in Aufsätzen mittels SRU.
+* [stat.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/stat.fix) erstellt Statistiken der transformierten Daten.
+* [type_as.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/type_as.fix) wird benötigt, um den RILM-Dokumenttyp von Artikeln in Zeitschriften und Sammlungen zu bestimmen.
+* [type_ha.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/type_ha.fix) wird benötigt, um den RILM-Dokumenttyp von Büchern, Zeitschriften, elektronischen Ressourcen, Weblogs, Dissertationen usw. zu bestimmen.
+* [type_re.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/type_re.fix) bestimmt den RILM-Dokumenttyp von Rezensionen.
+
+shell
+
+* [bms.sh](https://github.com/musikforschung/pica2bibtex/blob/main/shell/bms.sh) Bash-Skript zur Ausführung aller Schritte der Transformation von PICA nach BibTex für RILM.
 
 #  benötigte Catmandu-Module
 
@@ -78,23 +101,23 @@ Am Staatlichen Institut für Musikforschung (SIM) befindet sich die deutsche Red
 
 # Autoren
 
-* [BibTeX_bms.pm](https://github.com/musikforschung/Catmandu_PICAtoBibTeX/blob/main/BibTeX_bms.pm):
+* [BibTeX_bms.pm](https://github.com/musikforschung/pica2bibtex/blob/main/BibTeX_bms.pm):
 Nicolas Steenlant, nicolas.steenlant at ugent.be; bearbeitet von René Wallor
 
-* Skripte in [Fix_bms](https://github.com/musikforschung/Catmandu_PICAtoBibTeX/blob/main/Fix_bms):
+* Skripte in [Fix_bms](https://github.com/musikforschung/pica2bibtex/blob/main/Fix_bms):
 René Wallor, wallor at sim.spk-berlin.de
 
 # Mitwirkende
 
-* [picafix.fix](https://github.com/musikforschung/Catmandu_PICAtoBibTeX/blob/main/picafix.fix):
+* [picafix.fix](https://github.com/musikforschung/pica2bibtex/blob/main/picafix.fix):
 Johann Rolschewski, jorol at cpan.org
 
 # Lizenz und Copyright
 
-* [BibTeX_bms.pm](https://github.com/musikforschung/Catmandu_PICAtoBibTeX/blob/main/BibTeX_bms.pm):
+* [BibTeX_bms.pm](https://github.com/musikforschung/pica2bibtex/blob/main/BibTeX_bms.pm):
 Copyright (c) 2021 by Nicolas Steenlant
 
-* Skripte in [Fix_bms](https://github.com/musikforschung/Catmandu_PICAtoBibTeX/blob/main/Fix_bms):
+* Skripte in [Fix_bms](https://github.com/musikforschung/pica2bibtex/blob/main/Fix_bms):
 Copyright (c) 2022 Stiftung Preußischer Kulturbesitz - Staatliches Institut für Musikforschung
 
 This program is free software; you can redistribute it and/or modify it under the terms of either: the GNU General Public License as published by the Free Software Foundation; or the Artistic License.
