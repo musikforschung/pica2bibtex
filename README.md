@@ -19,7 +19,7 @@ fix
 * [countrycode.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/countrycode.fix) selects the country codes and IDs of all journals and collections. The loader codes are written to a csv file and transferred to the essays contained in the journals or collections in a later step.
 * [fehlermeldung_bms.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/fehlermeldung_bms.fix) validates the transformed BibTeX data.
 * [formschlagwort_bms.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/formschlagwort_bms.fix) checks PICA field 013D for missing information.
-* [pica2bibtex.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/picafix.fix) contains fixes for transforming the necessary PICA+ data into the BibTeX format.
+* [pica2bibtex.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/picafix.fix) contains fixes to transform the necessary PICA+ data into the BibTeX format.
 * [replace.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/replace.fix) is needed for cleaning up the transformed data.
 * [sru_map.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/sru_map.fix) is needed for adding the country of publication to the articles of journals and collections.
 * [stat.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/stat.fix) creates statistics of the transformed data.
@@ -29,16 +29,16 @@ fix
 
 shell
 
-* [bms.sh](https://github.com/musikforschung/pica2bibtex/blob/main/shell/bms.sh) Bash script bash script to execute all steps of the transformation from PICA to BibTex for RILM.
+* [bms.sh](https://github.com/musikforschung/pica2bibtex/blob/main/shell/bms.sh) Bash script to execute all steps of the transformation from PICA to BibTex for RILM.
 
 # Required Catmandu modules
 
 * [Catmandu::PICA](https://metacpan.org/dist/Catmandu-PICA)
 * [Catmandu::BibTeX](https://metacpan.org/pod/Catmandu::BibTeX)
+* [BibTeX.pm] (https://github.com/musikforschung/Exporter/blob/main/BibTeX.pm)
 
 # Authors
 
-* files included in [fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/):
 René Wallor, wallor at sim.spk-berlin.de
 
 # Contributors
@@ -48,7 +48,6 @@ Johann Rolschewski, jorol at cpan.org
 
 # License an copyright
 
-* files in [fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/):
 Copyright (c) 2022 Stiftung Preußischer Kulturbesitz - Staatliches Institut für Musikforschung
 
 This program is free software; you can redistribute it and/or modify it under the terms of either: the GNU General Public License as published by the Free Software Foundation; or the Artistic License.
@@ -92,26 +91,25 @@ fix
 
 shell
 
-* [bms.sh](https://github.com/musikforschung/pica2bibtex/blob/main/shell/bms.sh) Bash-Skript zur Ausführung aller Schritte der Transformation von PICA nach BibTex für RILM.
+* [bms.sh] (https://github.com/musikforschung/pica2bibtex/blob/main/shell/bms.sh) Bash-Skript zur Ausführung aller Schritte der Transformation von PICA nach BibTex für RILM.
 
 #  benötigte Catmandu-Module
 
-* [Catmandu::PICA](https://metacpan.org/dist/Catmandu-PICA)
-* [Catmandu::BibTeX](https://metacpan.org/pod/Catmandu::BibTeX)
+* [Catmandu::PICA] (https://metacpan.org/dist/Catmandu-PICA)
+* [Catmandu::BibTeX] (https://metacpan.org/pod/Catmandu::BibTeX)
+* [BibTeX.pm] (https://github.com/musikforschung/Exporter/blob/main/BibTeX.pm)
 
 # Autoren
 
-* Skripte in [Fix_bms](https://github.com/musikforschung/pica2bibtex/blob/main/Fix_bms):
 René Wallor, wallor at sim.spk-berlin.de
 
 # Mitwirkende
 
-* [picafix.fix](https://github.com/musikforschung/pica2bibtex/blob/main/picafix.fix):
+* [picafix.fix] (https://github.com/musikforschung/pica2bibtex/blob/main/picafix.fix):
 Johann Rolschewski, jorol at cpan.org
 
 # Lizenz und Copyright
 
-* Skripte in [Fix_bms](https://github.com/musikforschung/pica2bibtex/blob/main/Fix_bms):
 Copyright (c) 2022 Stiftung Preußischer Kulturbesitz - Staatliches Institut für Musikforschung
 
 This program is free software; you can redistribute it and/or modify it under the terms of either: the GNU General Public License as published by the Free Software Foundation; or the Artistic License.
