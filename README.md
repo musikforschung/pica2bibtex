@@ -64,7 +64,7 @@ See http://dev.perl.org/licenses/ for more information.
 <summary>DE Deutsche Version</summary>
 
 
-# Catmandu_PICAtoBibTex
+# pica2bibtex
 
 Transformation bibliographischer Daten aus dem Format PICA Plain in das Format BibTeX für RILM
 
@@ -93,7 +93,7 @@ Am Staatlichen Institut für Musikforschung (SIM) befindet sich die deutsche Red
 
 * [bms.sh](https://github.com/musikforschung/pica2bibtex/blob/main/shell/bms.sh) Bash-Skript zur Ausführung aller Schritte der Transformation von PICA nach BibTex für RILM.
 
-#  benötigte Catmandu-Module
+# Erforderliche Catmandu-Module
 
 * [Catmandu::PICA](https://metacpan.org/dist/Catmandu-PICA)
 * [Catmandu::BibTeX](https://metacpan.org/pod/Catmandu::BibTeX)
