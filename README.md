@@ -80,8 +80,8 @@ dictionary
 fix
 
 * [countrycode.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/countrycode.fix) ermittelt die Ländercodes von Zeitschriften und Sammlungen zur Weitergabe an die enthaltenen Aufsätze.
-* [fehlermeldung_bms.fix] (https://github.com/musikforschung/pica2bibtex/blob/main/fix/fehlermeldung_bms.fix) validiert die transformierten BibTeX-Daten.
-* [formschlagwort_bms.fix] (https://github.com/musikforschung/pica2bibtex/blob/main/fix/formschlagwort_bms.fix) überpfüft das Pica-Feld 013D auf fehlende Formschlagwörter.
+* [fehlermeldung_bms.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/fehlermeldung_bms.fix) validiert die transformierten BibTeX-Daten.
+* [formschlagwort_bms.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/formschlagwort_bms.fix) überpfüft das Pica-Feld 013D auf fehlende Formschlagwörter.
 * [pica2bibtex.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/picafix.fix) fixes zur Transformation der PICA-Plain Daten nach BibTeX.
 * [replace.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/replace.fix) wird für die Bereinigung der transformierten BibTeX-Daten benötigt.
 * [sru_map.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/sru_map.fix) Ermittlung und Ergänzung von Ländercodes in Aufsätzen mittels SRU.
@@ -101,9 +101,6 @@ shell
 
 # Autoren
 
-* [BibTeX_bms.pm](https://github.com/musikforschung/pica2bibtex/blob/main/BibTeX_bms.pm):
-Nicolas Steenlant, nicolas.steenlant at ugent.be; bearbeitet von René Wallor
-
 * Skripte in [Fix_bms](https://github.com/musikforschung/pica2bibtex/blob/main/Fix_bms):
 René Wallor, wallor at sim.spk-berlin.de
 
@@ -113,9 +110,6 @@ René Wallor, wallor at sim.spk-berlin.de
 Johann Rolschewski, jorol at cpan.org
 
 # Lizenz und Copyright
-
-* [BibTeX_bms.pm](https://github.com/musikforschung/pica2bibtex/blob/main/BibTeX_bms.pm):
-Copyright (c) 2021 by Nicolas Steenlant
 
 * Skripte in [Fix_bms](https://github.com/musikforschung/pica2bibtex/blob/main/Fix_bms):
 Copyright (c) 2022 Stiftung Preußischer Kulturbesitz - Staatliches Institut für Musikforschung
