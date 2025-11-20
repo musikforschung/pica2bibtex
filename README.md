@@ -35,7 +35,7 @@ shell
 
 * [Catmandu::PICA](https://metacpan.org/dist/Catmandu-PICA)
 * [Catmandu::BibTeX](https://metacpan.org/pod/Catmandu::BibTeX)
-* [BibTeX.pm] (https://github.com/musikforschung/Exporter/blob/main/BibTeX.pm)
+* [BibTeX.pm](https://github.com/musikforschung/Exporter/blob/main/BibTeX.pm)
 
 # Authors
 
@@ -91,13 +91,13 @@ fix
 
 shell
 
-* [bms.sh] (https://github.com/musikforschung/pica2bibtex/blob/main/shell/bms.sh) Bash-Skript zur Ausführung aller Schritte der Transformation von PICA nach BibTex für RILM.
+* [bms.sh](https://github.com/musikforschung/pica2bibtex/blob/main/shell/bms.sh) Bash-Skript zur Ausführung aller Schritte der Transformation von PICA nach BibTex für RILM.
 
 #  benötigte Catmandu-Module
 
-* [Catmandu::PICA] (https://metacpan.org/dist/Catmandu-PICA)
-* [Catmandu::BibTeX] (https://metacpan.org/pod/Catmandu::BibTeX)
-* [BibTeX.pm] (https://github.com/musikforschung/Exporter/blob/main/BibTeX.pm)
+* [Catmandu::PICA](https://metacpan.org/dist/Catmandu-PICA)
+* [Catmandu::BibTeX](https://metacpan.org/pod/Catmandu::BibTeX)
+* [BibTeX.pm](https://github.com/musikforschung/Exporter/blob/main/BibTeX.pm)
 
 # Autoren
 
@@ -105,7 +105,7 @@ René Wallor, wallor at sim.spk-berlin.de
 
 # Mitwirkende
 
-* [picafix.fix] (https://github.com/musikforschung/pica2bibtex/blob/main/picafix.fix):
+* [picafix.fix](https://github.com/musikforschung/pica2bibtex/blob/main/picafix.fix):
 Johann Rolschewski, jorol at cpan.org
 
 # Lizenz und Copyright
