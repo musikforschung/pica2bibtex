@@ -10,11 +10,11 @@ The German editorial office of the Répertoire International de Littérature Mus
 
 # Files description
 
-dictionary
+[dictionary](https://github.com/musikforschung/pica2bibtex/blob/main/dictionary)
 
 * [note.csv](https://github.com/musikforschung/pica2bibtex/blob/main/dictionary/note.csv) contains illustration details of the PICA field 034M and the corresponding RILM tag.
 
-fix
+[fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix)
 
 * [countrycode.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/countrycode.fix) selects the country codes and IDs of all journals and collections. The loader codes are written to a csv file and transferred to the essays contained in the journals or collections in a later step.
 * [fehlermeldung_bms.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/fehlermeldung_bms.fix) validates the transformed BibTeX data.
@@ -27,7 +27,7 @@ fix
 * [type_ha.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/type_ha.fix) is needed to determine the RILM document type of books, journals, electronic ressources, weblogs, theses ... .
 * [type_re.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/type_re.fix) is needed to determine the RILM document type of reviews.
 
-shell
+[shell](https://github.com/musikforschung/pica2bibtex/blob/main/shell)
 
 * [bms.sh](https://github.com/musikforschung/pica2bibtex/blob/main/shell/bms.sh) Bash script to execute all steps of the transformation from PICA to BibTex for RILM.
 
@@ -72,11 +72,11 @@ Am Staatlichen Institut für Musikforschung (SIM) befindet sich die deutsche Red
 
 # Beschreibung der Dateien
 
-dictionary
+[dictionary](https://github.com/musikforschung/pica2bibtex/blob/main/dictionary)
 
 * [note.csv](https://github.com/musikforschung/pica2bibtex/blob/main/dictionary/note.csv) enthält Angaben zu Illustrationen us dem Feld 034M und die jeweils entsprechenden RILM-tags.
 
-fix
+[fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix)
 
 * [countrycode.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/countrycode.fix) ermittelt die Ländercodes von Zeitschriften und Sammlungen zur Weitergabe an die enthaltenen Aufsätze.
 * [fehlermeldung_bms.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/fehlermeldung_bms.fix) validiert die transformierten BibTeX-Daten.
@@ -89,7 +89,7 @@ fix
 * [type_ha.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/type_ha.fix) wird benötigt, um den RILM-Dokumenttyp von Büchern, Zeitschriften, elektronischen Ressourcen, Weblogs, Dissertationen usw. zu bestimmen.
 * [type_re.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/type_re.fix) bestimmt den RILM-Dokumenttyp von Rezensionen.
 
-shell
+[shell](https://github.com/musikforschung/pica2bibtex/blob/main/shell)
 
 * [bms.sh](https://github.com/musikforschung/pica2bibtex/blob/main/shell/bms.sh) Bash-Skript zur Ausführung aller Schritte der Transformation von PICA nach BibTex für RILM.
 
