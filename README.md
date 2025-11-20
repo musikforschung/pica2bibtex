@@ -17,8 +17,8 @@ dictionary
 fix
 
 * [countrycode.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/countrycode.fix) selects the country codes and IDs of all journals and collections. The loader codes are written to a csv file and transferred to the essays contained in the journals or collections in a later step.
-* [fehlermeldung_bms.fix] (https://github.com/musikforschung/pica2bibtex/blob/main/fix/fehlermeldung_bms.fix) validates the transformed BibTeX data.
-* [formschlagwort_bms.fix] (https://github.com/musikforschung/pica2bibtex/blob/main/fix/formschlagwort_bms.fix) checks PICA field 013D for missing information.
+* [fehlermeldung_bms.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/fehlermeldung_bms.fix) validates the transformed BibTeX data.
+* [formschlagwort_bms.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/formschlagwort_bms.fix) checks PICA field 013D for missing information.
 * [pica2bibtex.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/picafix.fix) contains fixes for transforming the necessary PICA+ data into the BibTeX format.
 * [replace.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/replace.fix) is needed for cleaning up the transformed data.
 * [sru_map.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/sru_map.fix) is needed for adding the country of publication to the articles of journals and collections.
