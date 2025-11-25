@@ -1,6 +1,7 @@
 #pica2bibtex.sh
 #!/bin/bash -e
 
+
 green="`tput setaf 2`"
 red="`tput setaf 1`"
 sgr0="`tput sgr0`"
@@ -16,7 +17,7 @@ echo "Prüfe auf Aktualisierungen..."
 
 for repo_path in "${REPOS[@]}"; do
    if [ ! -d "$repo_path" ]; then
-      echo "Fehler: Verzeichnis nicht gefunden: $repo_path!" 
+      echo "Fehler: Verzeichnis nicht gefunden: $repo_path!"
 	     continue
    fi
 
@@ -42,6 +43,8 @@ echo "------------------------------------------------------"
 echo "Synchronisierung abgeschlossen.
 "
 
+
+
 ##Abruf und Transformation der RILM-Daten
 ## Abfrage des aktuellen RILM-Stempels "JJJJ-MM-TT"
 read -p "${cyan}			Bitte den aktuellen RILM-Stempel in der Form JJJJ-MM-TT eingeben: ${sgr0}" Date
@@ -51,6 +54,8 @@ while [[ ! "$Date" =~ ^20[23][0-9]-(0[369]|12)-(0?[1-9]|[12][0-9]|3[01])$ ]] ; d
 done
 echo "
 Transformation der BMS-Daten nach BibTeX gestartet."
+
+cd $HOME/rilm/pica2bibtex/
 
 # Löscht überflüssige Einträge im PICA-Abzug. 
 sed -i '/^nohup:/d' $HOME/rilm/pica2bibtex/dmpbms_${Date}.pp &&
