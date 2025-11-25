@@ -510,7 +510,7 @@ elsif pica_match ('029F4',"ctb")
       elsif pica_match ('029F4',"dgs") 
       pica_map('029Fa','author_supervisor.$append')
       pica_map('029F8','author_supervisor.$append')
-elsif pica_match ('029F4',"pbl")
+elsif pica_match ('029F4',"pbl|orm")
       pica_map('029Fa','ignore')
       pica_map('029F8','ignore')
 else  pica_map('029Fa','author.$append')
@@ -519,10 +519,28 @@ else  pica_map('029Fa','author.$append')
 end
 
 # proceedings
-if pica_match(013D$9,'005983479')
-   pica_map(013Dx,eventtitle,join:', ')
-   pica_map(013Dz,location,join:', ')
-   pica_map(013Dy,eventdate,join:', ')
+if pica_match(013D$9,"005983479")
+   if pica_match(013D$x)
+      pica_map(013D$x,eventtitle,join:', ')
+   else
+      do pica_each()
+         pica_map(030F$a,eventtitle)
+	  end
+   end
+   if pica_match(013D$z)
+      pica_map(013D$z,location,join:', ')
+   else
+      do pica_each()
+         pica_map(030F$k,location)
+	  end
+   end
+   if pica_match(013D$y)
+      pica_map(013D$y,eventdate,join:', ')
+   else
+      do pica_each()
+         pica_map(030F$p,eventdate)
+	  end
+   end
 end
 
 #address
@@ -753,7 +771,7 @@ do pica_each()
 end
 
 if exists(tmp.1)
-   parse_text(tmp.1,"(?<abstract_II>.*\.)\s*\((?<abstractor_II>.*)\)")
+   parse_text(tmp.1,"(?<abstract_II>.*[\.\!\?])\s*\((?<abstractor_II>.*)\)")
    if exists(tmp.1.abstractor_II)
       move_field(tmp.1.abstract_II,abstract_II)
       move_field(tmp.1.abstractor_II,abstractor_II)
@@ -762,7 +780,7 @@ if exists(tmp.1)
    else
       move_field(tmp.1,abstract_II)
    end
-   parse_text(tmp.0,"(?<abstract_I>.*\.)\s*\((?<abstractor_I>.*)\)")
+   parse_text(tmp.0,"(?<abstract_I>.*[\.\!\?])\s*\((?<abstractor_I>.*)\)")
    if exists(tmp.0.abstractor_I)
       move_field(tmp.0.abstract_I,abstract_I)
       move_field(tmp.0.abstractor_I,abstractor_I)
@@ -772,7 +790,7 @@ if exists(tmp.1)
       move_field(tmp.0,abstract_I)
    end
 else
-   parse_text(tmp.0,"(?<abstract>.*\.)\s*\((?<abstractor>.*)\)")
+   parse_text(tmp.0,"(?<abstract>.*[\.\!\?])\s*\((?<abstractor>.*)\)")
    if exists(tmp.0.abstractor)
       move_field(tmp.0.abstract,abstract)
       move_field(tmp.0.abstractor,abstractor)

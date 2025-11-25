@@ -77,6 +77,10 @@ if exists(abstractor)
    end
 end
 
+if any_match(abstract,'\(.*\)$')
+   copy_field(_citekey,PPN)
+   set_field(Abstractor,"Das Feld abstractor konnte nicht ermittelt werden: ")
+end								
 if exists(abstractor_i)
    unless any_match(abstractor_i,'^\w{2,15}\,\s\w{2,15}(\s\w{1,5})*$|^author$|^publisher$|^editor$')
       copy_field(_citekey,PPN)
@@ -84,6 +88,10 @@ if exists(abstractor_i)
    end
 end
 
+if any_match(abstract_i,'\(.*\)$')
+   copy_field(_citekey,PPN)
+   set_field(Abstractor,"Das Feld abstractor konnte nicht ermittelt werden: ")
+end								  
 if exists(abstractor_ii)
    unless any_match(abstractor_ii,'^\w{2,15}\,\s\w{2,15}(\s\w{1,5})*$|^author$|^publisher$|^editor$')
       copy_field(_citekey,PPN)
@@ -91,6 +99,10 @@ if exists(abstractor_ii)
    end
 end
 
+if any_match(abstract_ii,'\(.*\)$')
+   copy_field(_citekey,PPN)
+   set_field(Abstractor,"Das Feld abstractor konnte nicht ermittelt werden: ")
+end								   
 if exists(series)
    if any_match(series,'^\d{1,}$|^\s*$')
       copy_field(_citekey,PPN)
