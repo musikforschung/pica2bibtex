@@ -6,6 +6,42 @@ red="`tput setaf 1`"
 sgr0="`tput sgr0`"
 cyan="`tput setaf 6`"
 
+# Git-Synchronisation (https://github.com/musikforschung)
+REPOS=(
+"$HOME/rilm/pica2bibtex/"
+"$HOME/lib/Catmandu/Exporter/"
+)
+
+echo "Prüfe auf Aktualisierungen..."
+
+for repo_path in "${REPOS[@]}"; do
+   if [ ! -d "$repo_path" ]; then
+      echo "Fehler: Verzeichnis nicht gefunden: $repo_path!" 
+	     continue
+   fi
+
+   cd "$repo_path" || { echo  "Fehler: Konnte nicht in $repo_path wechseln!"; continue; }
+   git fetch &> /dev/null
+   if [ $? -ne 0 ]; then
+      echo "Fehler beim Abrufen der Remote_Daten."
+      continue
+   fi
+   STATUS=$(git status)
+   if [[ $STATUS =~ "Ihr Branch ist auf demselben Stand wie" ]]; then
+      echo "$repo_path ist aktuell"
+   elif [[ $STATUS =~ "git pull" ]]; then
+      echo "Aktualisierungen für $repo_path gefunden"
+      git config pull.rebase false && git pull &> /dev/null
+      echo "$repo_path wurde aktualisiert"
+   else
+      echo "Bitte Aktualisierungen prüfen."
+      echo "$STATUS"
+   fi
+done
+echo "------------------------------------------------------"
+echo "Synchronisierung abgeschlossen.
+"
+
 ##Abruf und Transformation der RILM-Daten
 ## Abfrage des aktuellen RILM-Stempels "JJJJ-MM-TT"
 read -p "${cyan}			Bitte den aktuellen RILM-Stempel in der Form JJJJ-MM-TT eingeben: ${sgr0}" Date
