@@ -66,7 +66,7 @@ fi &&
 # PICA-Datei auf eventuell fehlende Formschlagwörter (Festschrift/Konferenzschrift) prüfen
 catmandu convert PICA --type plain to CSV --fields Festschrift,Konferenzschrift,PPN --fix $HOME/rilm/pica2bibtex/fix/formschlagwort_bms.fix < $HOME/rilm/pica2bibtex/dmpbms_${Date}.pp > $HOME/rilm/pica2bibtex/formschlagwort_bms.csv &&
 
-if [ -f $HOME/rilm/formschlagwort_bms.csv ]; then
+if [ -f $HOME/rilm/pica2bibtex/formschlagwort_bms.csv ]; then
    echo "${cyan}			Bitte die Datei ${green}formschlagwort_bms.csv${cyan} prüfen und bei Bedarf in der Datei ${green}dmpbms_${Date}.pp${cyan} Formschlagwörter ergänzen!!!${sgr0}"
 fi
 
