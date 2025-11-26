@@ -29,7 +29,7 @@ The German editorial office of the Répertoire International de Littérature Mus
 
 [shell](https://github.com/musikforschung/pica2bibtex/blob/main/shell)
 
-* [bms.sh](https://github.com/musikforschung/pica2bibtex/blob/main/shell/bms.sh) Bash script to execute all steps of the transformation from PICA to BibTex for RILM.
+* [pica2bibtex.sh](https://github.com/musikforschung/pica2bibtex/blob/main/shell/pica2bibtex.sh) Bash script to execute all steps of the transformation from PICA to BibTex for RILM.
 
 # Required Catmandu modules
 
@@ -91,7 +91,7 @@ Am Staatlichen Institut für Musikforschung (SIM) befindet sich die deutsche Red
 
 [shell](https://github.com/musikforschung/pica2bibtex/blob/main/shell)
 
-* [bms.sh](https://github.com/musikforschung/pica2bibtex/blob/main/shell/bms.sh) Bash-Skript zur Ausführung aller Schritte der Transformation von PICA nach BibTex für RILM.
+* [pica2bibtex.sh](https://github.com/musikforschung/pica2bibtex/blob/main/shell/pica2bibtex.sh) Bash-Skript zur Ausführung aller Schritte der Transformation von PICA nach BibTex für RILM.
 
 # Erforderliche Catmandu-Module
 
