@@ -43,8 +43,6 @@ echo "------------------------------------------------------"
 echo "Synchronisierung abgeschlossen.
 "
 
-
-
 ##Abruf und Transformation der RILM-Daten
 ## Abfrage des aktuellen RILM-Stempels "JJJJ-MM-TT"
 read -p "${cyan}			Bitte den aktuellen RILM-Stempel in der Form JJJJ-MM-TT eingeben: ${sgr0}" Date
@@ -55,7 +53,7 @@ done
 echo "
 Transformation der BMS-Daten nach BibTeX gestartet."
 
-cd $HOME/rilm/pica2bibtex/
+cd $HOME/rilm/pica2bibtex/ &&
 
 # Löscht überflüssige Einträge im PICA-Abzug. 
 sed -i '/^nohup:/d' $HOME/rilm/pica2bibtex/dmpbms_${Date}.pp &&
