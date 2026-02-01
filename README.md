@@ -105,7 +105,7 @@ René Wallor, wallor at sim.spk-berlin.de
 
 # Mitwirkende
 
-* [pica2bibtex.fix](https://github.com/musikforschung/pica2bibtex/blob/main/pica2bibtex.fix):
+* [pica2bibtex.fix](https://github.com/musikforschung/pica2bibtex/blob/main/fix/pica2bibtex.fix):
 Johann Rolschewski, jorol at cpan.org
 
 # Lizenz und Copyright
@@ -119,4 +119,5 @@ See http://dev.perl.org/licenses/ for more information.
 </details>
 
 ---
+
 
