@@ -11,6 +11,7 @@ zahrl Ill.,1,
 zahlr. Ill.,1,
 zahlr. Ill,1,
 zahlr. ill.,1,
+zahlr.. Ill.,1,
 überwiegend Ill.,1,
 überw. Ill.,1,
 Illustrationen (teilweise farbig...,1,
@@ -67,6 +68,7 @@ Zahlreiche Notenbeispiele,4,
 zahlr. Notenbeisp.,4,
 zahlr. Notenbeisp,4,
 zahlr. Noten,4,
+Notenfaksimile,4,
 Notenbeisp.. Faks,4,
 Notenbeispielen,4,
 Notenbeispiele,4,
@@ -99,7 +101,8 @@ Diskograf.,8,
 Diskkogr,8,
 Diskogr.,8,
 Diskogr,8,
-Graphiken,10
+Formulare,10,
+Graphiken,10,
 graphische Darstellungen,10,
 grapische Darstellungen,10,
 graphische Darstellung,10,
@@ -170,3 +173,5 @@ Farbabbildungen,1
 Mit Farbtafeln,10,
 zahlreiche Illustrationen und Faksimiles,1
 illustrations (chiefly color),1
+[Aa]udio.*,1
+[Vv]ideo.*,1
