@@ -34,6 +34,8 @@ replace_all('pages'," , zahlr. Ill","");
 replace_all('pages'," , \überw. Noten","");
 trim(pages);
 replace_all('series',"@","");
+replace_all('series_I',"@","");
+replace_all('series_II',"@","");
 replace_all('maintitle',"@","");
 replace_all('eventtitle',"@","");
 replace_all('journal',"@","");
@@ -225,6 +227,7 @@ replace_all('language',"sco","Scots");
 replace_all('language',"sem","Semitic languages");
 replace_all('language',"slo","Slovak");
 replace_all('language',"slk","Slovak");
+replace_all('language',"slv","Slovenian");
 replace_all('language',"som","Somali");
 replace_all('language',"spa","Spanish");
 replace_all('language',"srp","Serbian");
@@ -362,6 +365,7 @@ replace_all('language_original',"sco","Scots");
 replace_all('language_original',"sem","Semitic languages");
 replace_all('language_original',"slo","Slovak");
 replace_all('language_original',"slk","Slovak");
+replace_all('language_original',"slv","Slovenian");
 replace_all('language_original',"som","Somali");
 replace_all('language_original',"spa","Spanish");
 replace_all('language_original',"srp","Serbian");
@@ -679,8 +683,6 @@ replace_all('type',"[A,C,E,H,O,S,Z]b","bp");
 replace_all('type',"sb","bc");
 replace_all('type',"Konferenzschrift","bs");
 replace_all('type',"Festschrift","be");
-#replace_all('type',"reJ","review");
-#replace_all('type',"reB","review");
 replace_all('type',"J","ap");
 replace_all('type',"B","as");
 replace_all('type',"P","as");
@@ -704,7 +706,7 @@ replace_all('abstractor_II',"Hrs.*|Herausgeb.*","editor")
 uniq(country);
 join(country,", ");
 replace_all('type',"proceedingsproceedings","proceedings");
-replace_all(volume,'\, [Cc][Dd]|\, [Bb]uch|Edition',"")
+replace_all(volume,'\, [Cc][Dd]|\, [Bb]uch|[Ee]dition',"")
 trim(volume)
 vacuum();
 

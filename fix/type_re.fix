@@ -48,7 +48,7 @@ if pica_match(002@$0,'[O][afF].*')
    do pica_each()
       if pica_match(013D$9,'002913119')
 	     pica_map(003@$0,ppn)
-         set_field(type,'rx')
+         set_field(type,'rg')
 	  end
    end
 end   

@@ -1,4 +1,3 @@
-#pica2bibtex.sh
 #!/bin/bash -e
 
 
@@ -8,10 +7,10 @@ sgr0="`tput sgr0`"
 cyan="`tput setaf 6`"
 
 # Git-Synchronisation (https://github.com/musikforschung)
-REPOS=(
-"$HOME/rilm/pica2bibtex/"
-"$HOME/lib/Catmandu/Exporter/"
-)
+#REPOS=(
+#"$HOME/sandbox/pica2bibtex/"
+#"$HOME/lib/Catmandu/Exporter/"
+#)
 
 echo "Prüfe auf Aktualisierungen..."
 
@@ -53,20 +52,20 @@ done
 echo "
 Transformation der BMS-Daten nach BibTeX gestartet."
 
-cd $HOME/rilm/pica2bibtex/ &&
+cd $HOME/sandbox/pica2bibtex/ &&
 
 # Löscht überflüssige Einträge im PICA-Abzug. 
-sed -i '/^nohup:/d' $HOME/rilm/pica2bibtex/dmpbms_${Date}.pp &&
+sed -i '/^nohup:/d' $HOME/sandbox/pica2bibtex/dmpbms_${Date}.pp &&
 
 # Alte Dateien Löschen oder Verschieben.
-if [ -f $HOME/rilm/pica2bibtex/dmpbms_*.btx ]; then
-   mv $HOME/rilm/pica2bibtex/dmpbms_*.btx $HOME/rilm/pica2bibtex/ablage/
+if [ -f $HOME/sandbox/pica2bibtex/dmpbms_*.btx ]; then
+   mv $HOME/sandbox/pica2bibtex/dmpbms_*.btx $HOME/sandbox/pica2bibtex/ablage/
 fi &&
 
 # PICA-Datei auf eventuell fehlende Formschlagwörter (Festschrift/Konferenzschrift) prüfen
-catmandu convert PICA --type plain to CSV --fields Festschrift,Konferenzschrift,PPN --fix $HOME/rilm/pica2bibtex/fix/formschlagwort_bms.fix < $HOME/rilm/pica2bibtex/dmpbms_${Date}.pp > $HOME/rilm/pica2bibtex/formschlagwort_bms.csv &&
+catmandu convert PICA --type plain to CSV --fields Festschrift,Konferenzschrift,PPN --fix $HOME/sandbox/pica2bibtex/fix/formschlagwort_bms.fix < $HOME/sandbox/pica2bibtex/dmpbms_${Date}.pp > $HOME/sandbox/pica2bibtex/formschlagwort_bms.csv &&
 
-if [ -f $HOME/rilm/pica2bibtex/formschlagwort_bms.csv ]; then
+if [ -f $HOME/sandbox/pica2bibtex/formschlagwort_bms.csv ]; then
    echo "${cyan}			Bitte die Datei ${green}formschlagwort_bms.csv${cyan} prüfen und bei Bedarf in der Datei ${green}dmpbms_${Date}.pp${cyan} Formschlagwörter ergänzen!!!${sgr0}"
 fi
 
@@ -79,26 +78,45 @@ done
 echo "Transformation der BMS-Daten wird fortgesetzt."
 
 # Lösche formschalgwort_bms.csv
-if [ -f $HOME/rilm/pica2bibtex/formschlagwort_bms.csv ]; then
-   rm $HOME/rilm/pica2bibtex/formschlagwort_bms.csv
+if [ -f $HOME/sandbox/pica2bibtex/formschlagwort_bms.csv ]; then
+   rm $HOME/sandbox/pica2bibtex/formschlagwort_bms.csv
 fi &&
 
 # CSV von allen HAs ihrer Materialart und ihren PPNs erstellen.
-catmandu convert PICA --type plain to CSV --fix $HOME/rilm/pica2bibtex/fix/type_ha.fix --fields ppn,type < $HOME/rilm/pica2bibtex/dmpbms_${Date}.pp > $HOME/rilm/pica2bibtex/data/type_ha.csv &&
+catmandu convert PICA --type plain to CSV --fix $HOME/sandbox/pica2bibtex/fix/type_ha.fix --fields ppn,type < $HOME/sandbox/pica2bibtex/dmpbms_${Date}.pp > $HOME/sandbox/pica2bibtex/data/type_ha.csv &&
 # CSV_Datei der HAs ihrer PPN und ihrer zugehörigen Materialart erstellen. Wird für die Bestimmung des types der Aufsätze benötigt.
-catmandu convert PICA --type plain to CSV --fix $HOME/rilm/pica2bibtex/fix/type_as.fix --fields ppn,type < $HOME/rilm/pica2bibtex/dmpbms_${Date}.pp > $HOME/rilm/pica2bibtex/data/type_as.csv &&
+catmandu convert PICA --type plain to CSV --fix $HOME/sandbox/pica2bibtex/fix/type_as.fix --fields ppn,type < $HOME/sandbox/pica2bibtex/dmpbms_${Date}.pp > $HOME/sandbox/pica2bibtex/data/type_as.csv &&
 # CSV_Datei der HAs ihrer PPN und ihrer zugehörigen Materialart erstellen. Wird für die Bestimmung des types der Rezensionen benötigt.
-catmandu convert PICA --type plain to CSV --fix $HOME/rilm/pica2bibtex/fix/type_re.fix --fields ppn,type < $HOME/rilm/pica2bibtex/dmpbms_${Date}.pp > $HOME/rilm/pica2bibtex/data/type_re.csv &&
+catmandu convert PICA --type plain to CSV --fix $HOME/sandbox/pica2bibtex/fix/type_re.fix --fields ppn,type < $HOME/sandbox/pica2bibtex/dmpbms_${Date}.pp > $HOME/sandbox/pica2bibtex/data/type_re.csv &&
 # Ländercodes der HAs für die Übergabe an die Aufsätze einsammeln
-catmandu convert PICA --type plain to CSV --fix $HOME/rilm/pica2bibtex/fix/countrycode.fix < $HOME/rilm/pica2bibtex/dmpbms_${Date}.pp > $HOME/rilm/pica2bibtex/data/countrycodelist.csv &&
+catmandu convert PICA --type plain to CSV --fix $HOME/sandbox/pica2bibtex/fix/countrycode.fix < $HOME/sandbox/pica2bibtex/dmpbms_${Date}.pp > $HOME/sandbox/pica2bibtex/data/countrycodelist.csv &&
 
 # Transformation ausführen.
-catmandu -I $HOME/lib convert PICA --type plain to BibTeX --fix $HOME/rilm/pica2bibtex/fix/pica2bibtex.fix --fix $HOME/rilm/pica2bibtex/fix/replace.fix < $HOME/rilm/pica2bibtex/dmpbms_${Date}.pp 1> $HOME/rilm/pica2bibtex/dmpbms_${Date}.btx 2>/dev/null &&
+catmandu -I $HOME/lib convert PICA --type plain to BibTeX --fix $HOME/sandbox/pica2bibtex/fix/pica2bibtex.fix --fix $HOME/sandbox/pica2bibtex/fix/replace.fix < $HOME/sandbox/pica2bibtex/dmpbms_${Date}.pp 1> $HOME/sandbox/pica2bibtex/dmpbms_${Date}.btx 2>/dev/null &&
+
+# entry types in RILM tags ändern
+TARGET_FILE="$HOME/sandbox/pica2bibtex/dmpbms_${Date}.btx"
+
+sed -i -e "
+    s/^@b[cegs]{/@collection{/;
+    s/^@bf{/@book{/;
+    s/^@bm{/@book{/;
+    s/^@bp{/@periodical{/;
+    s/^@bt{/@book{/;
+    s/^@dd{/@dissertation{/;
+    s/^@dm{/@thesis{/;
+    s/^@er{/@electronicres{/;
+    s/^@mp{/@film{/;
+    s/^@mr{/@audio{/;
+    s/^@r[abcdefprstvx]{/@review{/;
+	s/^@a[bcdegs]{/@incollection{/;
+	s/^@ap{/@article{/
+" "$TARGET_FILE"
 
 # BTX-Datei auf mögliche Fehler prüfen
-catmandu convert BibTeX to CSV --fields Type,Country,Note,Pages,Number,Volume,Year,Abstract,Abstractor,Series,Crossref,Ausschluss,PPN --fix $HOME/rilm/pica2bibtex/fix/fehlermeldung_bms.fix < $HOME/rilm/pica2bibtex/dmpbms_${Date}.btx > $HOME/rilm/pica2bibtex/fehlermeldung_bms_${Date}.csv &&
+catmandu convert BibTeX to CSV --fields Type,Country,Note,Pages,Number,Volume,Year,Abstract,Abstractor,Series,Crossref,Ausschluss,PPN --fix $HOME/sandbox/pica2bibtex/fix/fehlermeldung_bms.fix < $HOME/sandbox/pica2bibtex/dmpbms_${Date}.btx > $HOME/sandbox/pica2bibtex/fehlermeldung_bms_${Date}.csv &&
 
-if [ -f $HOME/rilm/pica2bibtex/fehlermeldung_bms_${Date}.csv ]; then
+if [ -f $HOME/sandbox/pica2bibtex/fehlermeldung_bms_${Date}.csv ]; then
    echo "
 Der BMS-Abzug im Format Bibtex für RILM befindet sich in der Datei ${green}dmpbms_${Date}.btx${sgr0}.
    
@@ -117,7 +135,7 @@ Der BMS-Abzug im Format Bibtex für RILM befindet sich in der Datei ${green}dmpb
    "
    sleep 3s
    # Erstelle Export-Statistik
-   catmandu convert BibTeX to Stat --fix $HOME/rilm/pica2bibtex/fix/stat.fix --fields Aufsätze_Monografien,Rezensionen,Abstracts < $HOME/rilm/pica2bibtex/dmpbms_${Date}.btx 2>/dev/null | tee $HOME/rilm/pica2bibtex/statistics/rilm_export_statistik_${Date}.csv
-   mv $HOME/rilm/pica2bibtex/fehlermeldung_bms_${Date}.csv $HOME/rilm/pica2bibtex/fehlermeldungen/
-   rm $HOME/rilm/pica2bibtex/dmpbms_${Date}.pp
+   catmandu convert BibTeX to Stat --fix $HOME/sandbox/pica2bibtex/fix/stat.fix --fields Aufsätze_Monografien,Rezensionen,Abstracts < $HOME/sandbox/pica2bibtex/dmpbms_${Date}.btx 2>/dev/null | tee $HOME/sandbox/pica2bibtex/statistics/rilm_export_statistik_${Date}.csv
+   mv $HOME/sandbox/pica2bibtex/fehlermeldung_bms_${Date}.csv $HOME/sandbox/pica2bibtex/fehlermeldungen/
+#   rm $HOME/sandbox/pica2bibtex/dmpbms_${Date}.pp
 fi

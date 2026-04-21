@@ -2,9 +2,10 @@
 # catmandu convert BibTeX to CSV --fields Type,Country,Note,Pages,Number,Volume,Year,Abstract,Abstractor,Series,Crossref,Ausschluss,PPN --fix ./pica2bibtex/fix/fehlermeldung.fix < dmpbms_${Date}.btx > fehlermeldung_bms.csv
 
 
-unless any_match(type,'[abcdejmpr][abcdefgklmnprstvwxz]')
+#unless any_match(type,'[abcdejmpr][abcdefgklmnprstvwxz]')
+unless any_match(type,'collection|festschrift|facsimile|blog_bm|book|periodica|proceeding|translation|dissertation|thesis|electronic_resource|motion_picture|sound_recording|review|article')
    copy_field(_citekey,PPN)
-   set_field(Type,"Das Feld type konnte nicht ermittelt werden: ")
+   set_field(Type,"Das document_type @ konnte nicht ermittelt werden: ")
 end
 
 if exists(country)

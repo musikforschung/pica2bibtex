@@ -39,7 +39,7 @@ if pica_match(002@$0,'[ACEHOZ][afF].*')
    end
 end
 
-#journal
+#periodical
 if pica_match(002@$0,'[ACEHOZ]b.*')
    pica_map(003@$0,ppn)
    set_field(type,'bp')

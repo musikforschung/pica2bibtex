@@ -565,8 +565,16 @@ if pica_match(002@$0,'[ABCEHOSVZ]s.*')
    end	  
 end
 
-#publisher   
-pica_map('033An','publisher',join:', ')
+#publisher
+do pica_each()
+   unless pica_match(033Az,".*")
+      pica_map(033An,tmp_pub.$append)
+      
+   end
+end
+join_field(tmp_pub,", ")
+copy_field(tmp_pub,publisher)
+rm(tmp_pub)
 
 # pages
 pica_map('034Da',tmp_pages)
@@ -846,6 +854,15 @@ if pica_match('002@0/0-1','[A,B,C,E,H,O,S,Z]s')
       lookup(type,"./data/type_as.csv")
    end
 end
+
+# article journal field
+if pica_match('002@0/0-1','[A,B,C,E,H,O,S,Z]s')
+   if pica_match(099@i/0,'J')
+      pica_map(039B$8,journal)
+	  replace_all(journal,'\.\s\-\s.*',"")
+   end
+end
+
 #review	 
 if pica_match('002@0/0-1','[A,B,C,E,H,O,S,Z]s')
    if pica_match('099@c/0-2','re')
@@ -857,6 +874,17 @@ if pica_match('002@0/0-1','[A,B,C,E,H,O,S,Z]s')
    end
 end   
 remove_field(tmp)
+
+#review journal field
+if pica_match('002@0/0-1','[A,B,C,E,H,O,S,Z]s')
+   if pica_match('099@c/0-2','re')
+      if pica_match('099@i/0','J')
+	     pica_map(039B$8,journal)
+		 replace_all(journal,'\.\s\-\s.*',"")
+      end
+   end
+end
+
 # article + review: crossref + countrycode
 if pica_match('099@i',[BJ])
    pica_map('039B9','crossref')
@@ -880,6 +908,9 @@ if pica_match(010@$c,'.*')
 end
 
 vacuum()
+
+# BMS-tag
+set_field(keywords,"german_committee")
 
 remove_field('record');
 
