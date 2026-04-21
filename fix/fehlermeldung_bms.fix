@@ -44,7 +44,7 @@ if exists(volume)
 end
 
 if exists(year)
-   unless any_match(year,"^(\d{4}|\d{4}\/\d{4}|\d{4}\/\d{2})$")
+   unless any_match(year,"^(\d{4}|\d{4}\/\d{4}|\d{4}\/\d{2}|\d{4}\-\d{4})$")
       copy_field(_citekey,PPN)
       set_field(Year,"Das Feld year konnte nicht ermittelt werden: ")
    end
