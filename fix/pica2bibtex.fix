@@ -546,12 +546,23 @@ if pica_match(013D$9,"005983479")
    end
 end
 
-#address
-if pica_match(033Ap,'.*')
-   pica_map('033Ap','address',join:', ')
-else
-   pica_map('033D8','address',join:', ')
+#publisher
+do pica_each()
+   unless pica_match(033Az,".*")
+      pica_map(033An,tmp_pub.$append)
+      if pica_match(033Ap,'.*')
+	     pica_map('033Ap',tmp_add.$append)
+	  else
+         pica_map('033D8',tmp_add.$append)
+      end
+   end
 end
+join_field(tmp_pub,", ")
+copy_field(tmp_pub,publisher)
+rm(tmp_pub)
+join_field(tmp_add,", ")
+copy_field(tmp_add,address)
+rm(tmp_add)
 
 #(unselbständige Werke) 031A/4070 
 if pica_match(002@$0,'[ABCEHOSVZ]s.*') 
@@ -564,17 +575,6 @@ if pica_match(002@$0,'[ABCEHOSVZ]s.*')
       pica_map(031Ag,'pages')
    end	  
 end
-
-#publisher
-do pica_each()
-   unless pica_match(033Az,".*")
-      pica_map(033An,tmp_pub.$append)
-      
-   end
-end
-join_field(tmp_pub,", ")
-copy_field(tmp_pub,publisher)
-rm(tmp_pub)
 
 # pages
 pica_map('034Da',tmp_pages)
