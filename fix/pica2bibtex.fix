@@ -911,12 +911,9 @@ if pica_match('099@i',[BJ])
 end
 
 # language_original
-if pica_match(002@$0,'[ACEHOZ][afF].*')
-   if pica_match(010@$c,'.*')
-      set_field(type,'bt')
-      pica_map(010@$c,'language_original',split: 1)
-      join_field(language_original,', ')
-   end
+if pica_match(010@$c,'.*')
+   pica_map(010@$c,'language_original',split: 1)
+   join_field(language_original,', ')
 end
 
 vacuum()
