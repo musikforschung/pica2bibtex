@@ -1,20 +1,38 @@
-# Erstellt eine Export-Statistik 
-# catmandu convert BibTeX to Stat --fix ./fix/stat.fix --fields Aufsätze_Monografien,Rezensionen,Abstracts < dmpbms_${Date}.btx
+# Erstellt eine Export-Statistik für die BMS-Daten
+# catmandu convert BibTeX to Stat --fix ./fix/stat.fix --fields Aufsätze_Monografien,Rezensionen,Abstracts,Zeitschriften < dmpbms_${Date}.btx
 
-if any_match(abstract,'.*')
-   copy_field(abstract,'Abstracts')
-end
-if any_match(abstract_i,'.*')
-   copy_field(abstract_i,'Abstracts')
-end
-if any_match(abstract_ii,'.*')
-   copy_field(abstract_ii,'Abstracts')
+if any_match(keywords,'german_committee')
+   if any_match(abstract,'.*')
+      copy_field(abstract,'Abstracts')
+   end
 end
 
-if any_match(type,'collection|festschrift|facsimile|blog_bm|book|proceeding|translation|dissertation|thesis|electronic_resource|motion_picture|sound_recording|article')
-   copy_field(type,Aufsätze_Monografien)
+if any_match(keywords,'german_committee')
+   if any_match(abstract_i,'.*')
+      copy_field(abstract_i,'Abstracts')
+   end
 end
 
-if any_match(type,'review')
-   copy_field(type,Rezensionen)
+if any_match(keywords,'german_committee')
+   if any_match(abstract_ii,'.*')
+      copy_field(abstract_ii,'Abstracts')
+   end
+end
+
+if any_match(keywords,'german_committee')
+   if any_match(type,'collection|book|dissertation|thesis|electronicres|film|audio|article|incollection')
+      copy_field(type,Aufsätze_Monografien)
+   end
+end
+
+if any_match(keywords,'german_committee')
+   if any_match(type,'review')
+      copy_field(type,Rezensionen)
+   end
+end
+
+if any_match(keywords,'german_committee')
+   if any_match(type,'periodical')
+      copy_field(type,Zeitschriften)
+   end
 end

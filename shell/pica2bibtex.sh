@@ -135,7 +135,7 @@ Der BMS-Abzug im Format Bibtex für RILM befindet sich in der Datei ${green}dmpb
    "
    sleep 3s
    # Erstelle Export-Statistik
-   catmandu convert BibTeX to Stat --fix $HOME/rilm/pica2bibtex/fix/stat.fix --fields Aufsätze_Monografien,Rezensionen,Abstracts < $HOME/rilm/pica2bibtex/dmpbms_${Date}.btx 2>/dev/null | tee $HOME/rilm/pica2bibtex/statistics/rilm_export_statistik_${Date}.csv
+   catmandu convert BibTeX to Stat --fix $HOME/rilm/pica2bibtex/fix/stat.fix --fields Aufsätze_Monografien,Rezensionen,Abstracts,Zeitschriften < $HOME/rilm/pica2bibtex/dmpbms_${Date}.btx 2>/dev/null | tee $HOME/rilm/pica2bibtex/statistics/rilm_export_statistik_${Date}.csv
    mv $HOME/rilm/pica2bibtex/fehlermeldung_bms_${Date}.csv $HOME/rilm/pica2bibtex/fehlermeldungen/
    rm $HOME/rilm/pica2bibtex/dmpbms_${Date}.pp
 fi
