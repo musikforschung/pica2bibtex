@@ -1,5 +1,5 @@
 # Erstellt eine Export-Statistik für die BMS-Daten
-# catmandu convert BibTeX to Stat --fix ./fix/stat.fix --fields Aufsätze_Monografien,Rezensionen,Abstracts,Zeitschriften < dmpbms_${Date}.btx
+# catmandu convert BibTeX to Stat --fix ./fix/stat.fix --fields Aufsätze,Monografien,Rezensionen,Abstracts,Zeitschriften,elektronische_Ressource,Ton_Film < dmpbms_${Date}.btx
 
 if any_match(keywords,'german_committee')
    if any_match(abstract,'.*')
@@ -20,19 +20,37 @@ if any_match(keywords,'german_committee')
 end
 
 if any_match(keywords,'german_committee')
-   if any_match(type,'collection|book|dissertation|thesis|electronicres|film|audio|article|incollection')
-      copy_field(type,Aufsätze_Monografien)
+   if any_match(type,'[bd][cdefgmst]')
+      copy_field(type,Monografien)
    end
 end
 
 if any_match(keywords,'german_committee')
-   if any_match(type,'review')
+   if any_match(type,'a[bcdegps]')
+      copy_field(type,Aufsätze)
+   end
+end
+
+if any_match(keywords,'german_committee')
+   if any_match(type,'er')
+      copy_field(type,elektronische_Ressource)
+   end
+end
+
+if any_match(keywords,'german_committee')
+   if any_match(type,'m[pr]')
+      copy_field(type,Ton_Film)
+   end
+end
+
+if any_match(keywords,'german_committee')
+   if any_match(type,'r[abcdefprstvx]')
       copy_field(type,Rezensionen)
    end
 end
 
 if any_match(keywords,'german_committee')
-   if any_match(type,'periodical')
+   if any_match(type,'bp')
       copy_field(type,Zeitschriften)
    end
 end
